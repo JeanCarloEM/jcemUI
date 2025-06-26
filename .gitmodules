@@ -1,3 +1,6 @@
 [submodule "vendor/tsJCEM"]
 	path = vendor/tsJCEM
 	url = https://github.com/JeanCarloEM/jcemTS.git
+[submodule "modules/jcemTS"]
+	path = modules/jcemTS
+	url = https://github.com/JeanCarloEM/jcemTS.git
