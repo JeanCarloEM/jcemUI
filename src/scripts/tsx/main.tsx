@@ -1,15 +1,11 @@
 import { render } from 'preact';
-import { HeaderSectionTop } from './main/HeaderSectionTop';
-import { SectionWrapper } from './main/SectionWrapper';
-import { Footer } from './main/Footer';
-import { PageZone } from '../components/PageZone/PageZone';
 import '../../assets/css/tailwind.css';
 import '../../__generated__/fontawesome';
-import { FooterZone } from '@ext/FooterZone/FooterZone';
-import { HeaderBar } from '@ext/HeaderBar/HeaderBar';
-import { HeaderZone } from '@ext/HeaderZone/HeaderZone';
-import { Button, Menu, NavIcon } from '@ext/NavIcon/NavIcon';
-import { ContentWrapper } from '@ext/ContentWrapper/ContentWrapper';
+import { ContentWrapper } from '../components/ContentWrapper/ContentWrapper';
+import { FooterZone } from '../components/FooterZone/FooterZone';
+import { HeaderBar } from '../components/HeaderBar/HeaderBar';
+import { HeaderZone } from '../components/HeaderZone/HeaderZone';
+import { PageZone } from '../components/PageZone/PageZone';
 
 export default function Master() {
 	return (

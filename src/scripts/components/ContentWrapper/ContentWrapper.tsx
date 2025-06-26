@@ -59,7 +59,7 @@ import { JSX } from 'preact';
 import {
 	ISectionWrapperBase,
 	SectionWrapperBase,
-} from '@ext/SectionWrapperBase/SectionWrapperBase';
+} from '../SectionWrapperBase/SectionWrapperBase';
 
 export interface IContentWrapper extends ISectionWrapperBase {}
 

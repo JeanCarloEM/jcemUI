@@ -134,6 +134,7 @@ export default defineConfig(({ mode }) => ({
 	},
 	resolve: {
 		alias: {
+			'@mod': path.resolve(__dirname, 'modules'),
 			'@ext': path.resolve(__dirname, 'src/scripts/components'),
 			'@scss': path.resolve(__dirname, 'src/scss'),
 			'@css': path.resolve(__dirname, 'src/assets/css'),

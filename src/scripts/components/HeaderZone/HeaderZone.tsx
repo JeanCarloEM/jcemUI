@@ -118,7 +118,7 @@ import {
 	SectionWrapperBase,
 	ISectionWrapperBase,
 } from '../SectionWrapperBase/SectionWrapperBase';
-import Logger from '../../ts/utils/logger';
+import Logger from '@mod/jcemTS/src/ts/utils/logger';
 
 /** Props do HeaderZone */
 export interface IHeaderZone

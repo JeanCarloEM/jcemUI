@@ -136,7 +136,7 @@ import {
 	TUIShadow,
 	resolveClassName,
 	TItemX,
-} from '../../ts/common/ui';
+} from '@mod/jcemTS/src/ts/common/ui';
 import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
 

@@ -102,17 +102,17 @@ import {
 } from '@fortawesome/fontawesome-svg-core';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { twMerge } from 'tailwind-merge';
-import Logger from '../../ts/utils/logger';
+import Logger from '@mod/jcemTS/src/ts/utils/logger';
 import {
 	getCaption,
 	resolveClassName,
 	TCaption,
-} from '../../ts/common/ui';
+} from '@mod/jcemTS/src/ts/common/ui';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import { noEmpty } from '../../ts/common/logicos';
+import { noEmpty } from '@mod/jcemTS/src/ts/common/logicos';
 
 /** Tipagem para ícones lado esquerdo e direito */
 export type TBTBIcon = {

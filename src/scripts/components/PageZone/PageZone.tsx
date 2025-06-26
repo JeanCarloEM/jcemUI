@@ -158,15 +158,15 @@ import { JSX, toChildArray, VNode } from 'preact';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
-import { resolveClassName } from '../../ts/common/ui';
+import { resolveClassName } from '@mod/jcemTS/src/ts/common/ui';
 import './PageZone.scss';
 //import { ContentWrapper } from '../ContentWrapper/ContentWrapper';
 import { HeaderZone } from '../HeaderZone/HeaderZone';
 import { Button, INavIcon, Menu, NavIcon } from '../NavIcon/NavIcon';
 import { FooterZone } from '../FooterZone/FooterZone';
-import { EnclosureContent } from '@ext/EnclosureContent/EnclosureContent';
-import { ContentWrapper } from '@ext/ContentWrapper/ContentWrapper';
-import { HAS } from '../../ts/common/logicos';
+import { EnclosureContent } from '../EnclosureContent/EnclosureContent';
+import { ContentWrapper } from '../ContentWrapper/ContentWrapper';
+import { HAS } from '@mod/jcemTS/src/ts/common/logicos';
 
 /** 🔗 Props */
 export interface IPageZone

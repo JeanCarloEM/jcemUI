@@ -54,13 +54,13 @@
 import { JSX } from 'preact';
 import { twMerge } from 'tailwind-merge';
 import { tv } from 'tailwind-variants';
-import { guid } from '../../ts/common/generic';
+import { guid } from '@mod/jcemTS/src/ts/common/generic';
 import {
 	HTML_TAGS,
 	HtmlTag,
 	resolveClassName,
-} from '../../ts/common/ui';
-import Logger from '../../ts/utils/logger';
+} from '@mod/jcemTS/src/ts/common/ui';
+import Logger from '@mod/jcemTS/src/ts/utils/logger';
 
 /** 🚩rops do SectionWrapperBase */
 export interface ISectionWrapperBase

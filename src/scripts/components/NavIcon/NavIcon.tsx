@@ -103,18 +103,18 @@
 
 import { ButtonX, TButtonX } from '../ButtonX/ButtonX';
 import { JSX } from 'preact';
-import { guid } from '../../ts/common/generic';
+import { guid } from '@mod/jcemTS/src/ts/common/generic';
 import { useRef } from 'preact/hooks';
 import { tv } from 'tailwind-variants';
 import { twMerge } from 'tailwind-merge';
-import { IMenuX, MenuX } from '@ext/MenuX/MenuX';
+import { IMenuX, MenuX } from '../MenuX/MenuX';
 import {
 	HTML_TAGS,
 	HtmlTag,
 	resolveClassName,
 	TItemX,
-} from '../../ts/common/ui';
-import { isTrue } from '../../ts/common/logicos';
+} from '@mod/jcemTS/src/ts/common/ui';
+import { isTrue } from '@mod/jcemTS/src/ts/common/logicos';
 
 /** Type guard para diferenciar MenuX */
 function isMenu(

@@ -92,7 +92,7 @@ import { useRef } from 'preact/hooks';
 import { JSX } from 'preact';
 import { TButtonX, ButtonX } from '../ButtonX/ButtonX';
 import { NavIcon } from '../NavIcon/NavIcon';
-import { guid } from '../../ts/common/generic';
+import { guid } from '@mod/jcemTS/src/ts/common/generic';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
@@ -100,8 +100,8 @@ import {
 	getCaption,
 	resolveClassName,
 	TItemX,
-} from '../../ts/common/ui';
-import { HAS } from '../../ts/common/logicos';
+} from '@mod/jcemTS/src/ts/common/ui';
+import { HAS } from '@mod/jcemTS/src/ts/common/logicos';
 
 export interface IMenuX
 	extends Omit<TButtonX, 'htmlFor'>,
