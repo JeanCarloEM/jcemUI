@@ -1,0 +1,50 @@
+{
+	"ts-node": {
+		"esm": true,
+		"experimentalSpecifierResolution": "node",
+		"transpileOnly": true,
+		"swc": true,
+		"compilerOptions": {
+			"module": "ESNext"
+		}
+	},
+	"types": ["vite/client", "vitest/client", "node"],
+	"typeRoots": ["./node_modules/@types", "./src/script/ts/types"],
+	"compilerOptions": {
+		"target": "es2020",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"moduleDetection": "force",
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact",
+
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+
+		"strict": true,
+		"skipLibCheck": true,
+		"noEmit": true,
+
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+
+		"baseUrl": ".",
+		"paths": {
+			"@ext/*": ["src/scripts/components/*"],
+			"@/*": ["*"],
+			"@tsx/*": ["src/scripts/tsx/*"],
+			"@ts/*": ["src/scripts/ts/*"],
+			"@scss/*": ["src/scss/*"],
+			"@css/*": ["src/assets/css/*"]
+		}
+	},
+	"include": [
+		"src/scripts/ts/types/env.d.ts",
+		"src",
+		"scripts",
+		"src/scripts",
+		"src/scripts/ts"
+	]
+}
