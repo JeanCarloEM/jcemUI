@@ -211,7 +211,7 @@ export function NavIcon<T extends HtmlTag>({
 						orientation === 'horizontal' ? 'horizontal' : 'dropdown'
 					}
 				/>
-			:	<ButtonX {...commonProps} {...item} />;
+			:	<ButtonX {...commonProps} {...(item as TButtonX)} />;
 
 		/** 🔗 Sempre encapsular em <li> */
 		return <li key={`${cid}-li-${idx}`}>{content}</li>;
