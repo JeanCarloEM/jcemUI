@@ -148,30 +148,84 @@ export interface INavIcon
 	behavior?: 'toolbar' | 'menu' | 'header';
 	className?: string | (() => string);
 	as?: any;
+	compact?: boolean;
+	collapsible?: boolean;
 }
 
 /** Variantes visuais */
 const navIconVariants = tv({
-	base: 'inav-jcem transition-all duration-200',
+	slots: {
+		aside: 'inav-jcem transition-all duration-200',
+		ul: '',
+		li: '',
+	},
 	variants: {
 		behavior: {
-			toolbar: 'bg-base-100 rounded-lg p-1',
-			menu: 'absolute z-50',
-			header: 'flex items-center',
+			toolbar: {
+				aside: 'bg-base-100 rounded-lg p-1',
+				ul: 'flex',
+				li: 'w-full',
+			},
+			menu: {
+				aside: 'absolute z-50',
+				ul: 'menu bg-base-100 p-2 rounded-box',
+				li: '',
+			},
+			header: {
+				aside: 'flex items-center',
+				ul: 'flex',
+				li: '',
+			},
 		},
 		orientation: {
-			vertical: 'flex flex-col',
-			horizontal: 'flex flex-row',
+			vertical: {
+				aside: 'flex flex-col',
+				ul: 'flex flex-col gap-1 w-full',
+				li: 'w-full',
+			},
+			horizontal: {
+				aside: 'flex flex-row',
+				ul: 'flex flex-row gap-2 items-center',
+				li: '',
+			},
 		},
 		opened: {
-			true: 'opacity-100 visible',
-			false: 'opacity-0 invisible absolute',
+			true: {
+				aside: 'opacity-100 visible',
+			},
+			false: {
+				aside: 'opacity-0 invisible absolute',
+			},
+		},
+		compact: {
+			true: {
+				aside: 'menu-compact',
+				ul: 'gap-0',
+				li: '[&_.btn]:justify-center [&_.btn]:px-2',
+			},
+			false: {
+				aside: '',
+				ul: '',
+				li: '',
+			},
+		},
+		collapsible: {
+			true: {
+				aside: 'overflow-hidden',
+				ul: 'transition-all duration-300',
+			},
+			false: {
+				aside: '',
+				ul: '',
+			},
 		},
 	},
 	defaultVariants: {
 		behavior: 'toolbar',
 		orientation: 'vertical',
 		opened: true,
+		compact: false,
+		collapsible: false,
 	},
 });
 
@@ -187,19 +241,32 @@ export function NavIcon<T extends HtmlTag>({
 	orientation = 'vertical',
 	behavior = 'toolbar',
 	className,
+	compact = false,
+	collapsible = false,
 	...props
 }: INavIcon) {
 	const Tag = HTML_TAGS.includes(as) ? as : 'section';
 	const cid = useRef(menuId ?? `inav-${guid(18)}`).current;
 
-	/** 🔨 Renderiza cada item */
+	const { aside, ul, li } = navIconVariants({
+		behavior,
+		orientation,
+		opened: isTrue(opened),
+		compact: isTrue(compact),
+		collapsible: isTrue(collapsible),
+	});
+
+	/** Renderiza cada item */
 	const renderItem = (item: TItemX, idx: number) => {
 		const commonProps = {
 			key: `${cid}-item-${idx}`,
 			className: twMerge(
-				'w-full text-left',
+				li(),
+				'w-full text-left flex items-center',
+				collapsible && 'peer-checked/compact:[&>span]:hidden',
 				resolveClassName(item.className),
 			),
+			...(collapsible && { 'data-collapsable': '' }),
 		};
 
 		const content =
@@ -213,13 +280,15 @@ export function NavIcon<T extends HtmlTag>({
 				/>
 			:	<ButtonX {...commonProps} {...(item as TButtonX)} />;
 
-		/** 🔗 Sempre encapsular em <li> */
-		return <li key={`${cid}-li-${idx}`}>{content}</li>;
+		return (
+			<li key={`${cid}-li-${idx}`} className={li()}>
+				{content}
+			</li>
+		);
 	};
 
 	return (
 		<>
-			{/* Controle de estado via input */}
 			{menuId && (
 				<input
 					type="radio"
@@ -230,31 +299,31 @@ export function NavIcon<T extends HtmlTag>({
 				/>
 			)}
 
-			{/* Wrapper */}
+			{collapsible && (
+				<input
+					type="checkbox"
+					id={`${cid}-compact`}
+					className="hidden peer/compact"
+					checked={isTrue(compact)}
+				/>
+			)}
+
 			<Tag
 				{...(menuId ? { 'data-menu': cid } : { 'data-inav': cid })}
 				{...props}
 				className={twMerge(
-					navIconVariants({
-						behavior,
-						orientation,
-						opened: isTrue(opened),
-					}),
+					aside(),
+					collapsible && 'peer',
 					`inav-jcem-${escopo}`,
 					resolveClassName(wrapperClass),
 					resolveClassName(className),
 				)}
 				data-navicon={cid}
 			>
-				{/* Lista dos itens */}
 				<ul
 					className={twMerge(
-						behavior === 'menu' ?
-							'menu bg-base-100 p-2 rounded-box'
-						:	'flex',
-						orientation === 'horizontal' ?
-							'gap-2 items-center'
-						:	'gap-1',
+						ul(),
+						collapsible && 'peer-checked/compact:[&_.btn]:px-3',
 						resolveClassName(ulClass),
 					)}
 				>
