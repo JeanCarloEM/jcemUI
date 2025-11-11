@@ -1,0 +1,30 @@
+// src/styles/_config.scss
+@use 'sass:map';
+@use 'sass:string';
+
+$css-var-prefix: 'th';
+
+// $auto-var-map é injetado virtualmente aqui pelo Vite/TS!
+
+// Função para retornar a propriedade CSS completa (ex: var(--th-0a))
+@function get($sass-var-name) {
+	// Uso de map.get()
+	$suffix: map.get($auto-var-map, $sass-var-name);
+
+	@if not $suffix {
+		@error "Variável Sass desconhecida ou não mapeada: #{$sass-var-name}. Verifique se está em _variables.scss ou em algum arquivo de tema, e reinicie o Vite.";
+	}
+
+	// Retorna a string completa da função CSS var()
+	@return string.unquote('var(--#{$css-var-prefix}-#{$suffix})');
+}
+
+// Função auxiliar para extrair apenas o nome da variável (--th-0a) da string "var(--th-0a)"
+@function extract-var-name($var-func-string) {
+	// Uso de string.slice() e string.length()
+	@return string.slice(
+		$var-func-string,
+		5,
+		string.length($var-func-string) - 1
+	);
+}

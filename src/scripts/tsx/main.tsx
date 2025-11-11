@@ -1,6 +1,9 @@
 import { render } from 'preact';
 import '../../assets/css/tailwind.css';
 import '../../__generated__/fontawesome';
+import '../../scss/global/_config.scss';
+import '../../scss/global/_variables.scss';
+import '../../scss/main.scss';
 import { ContentWrapper } from '../components/ContentWrapper/ContentWrapper';
 import { FooterZone } from '../components/FooterZone/FooterZone';
 import { HeaderBar } from '../components/HeaderBar/HeaderBar';

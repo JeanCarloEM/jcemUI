@@ -6,6 +6,8 @@ import { execSync } from 'child_process';
 import { transformWithEsbuild } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 
+import { sassThemePlugins } from './scripts/generate-global-css-vars';
+
 // Resolve caminho para ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -104,6 +106,7 @@ export default defineConfig(({ mode }) => ({
 				}
 			},
 		},
+		...sassThemePlugins,
 	],
 	build: {
 		outDir: 'dist/www',
@@ -123,6 +126,7 @@ export default defineConfig(({ mode }) => ({
 		minifyIdentifiers: mode === 'production',
 		minifySyntax: mode === 'production',
 		minifyWhitespace: mode === 'production',
+		logLevel: 'verbose',
 	},
 	define: {
 		__DEV__: mode !== 'production',

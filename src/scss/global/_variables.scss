@@ -1,0 +1,32 @@
+// src/styles/main.scss
+@use './config' as cfg;
+@use 'sass:map'; // Adicionado uso para map.get na iteração
+@use './variables.default' as defaults;
+
+// Mixin que gera as propriedades CSS (--th-ID: valor;)
+@mixin generate-theme-vars($theme-map) {
+	// @each funciona normalmente
+	@each $sass-var-name, $value in $theme-map {
+		@if $value != null {
+			$var-func-string: cfg.get($sass-var-name);
+			// Chamada correta da função importada de _config.scss
+			$css-var-name: cfg.extract-var-name($var-func-string);
+
+			#{$css-var-name}: #{$value};
+		}
+	}
+}
+
+// 1. Geração do :root{} (Valores Padrão Completos)
+:root {
+	// Acessando a variável global do módulo defaults
+	@include generate-theme-vars(defaults.$theme-map);
+}
+
+// 2. Geração dos Seletores de Input Radio (Sobrescrita)
+@each $theme-name, $theme-map in $themes {
+	input[type='radio'][value='#{$theme-name}']:checked
+		~ .app-container {
+		@include generate-theme-vars($theme-map);
+	}
+}

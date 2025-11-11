@@ -1,0 +1,30 @@
+$theme-map: (
+	'font-family': #{(
+			'Noto Sans',
+			'Segoe UI',
+			'Roboto',
+			'Oxygen-Sans',
+			'Ubuntu',
+			'Cantarell',
+			'Helvetica Neue',
+			sans-serif
+		)},
+	'global-font-size': 1rem,
+	'global-line-height': 1.25em,
+	'background': #f0f0f0,
+	// Cor de fundo padrão (claro/neutro)
+	'primary-text-color': #333333,
+	// Cor do texto padrão
+	'border-radius-base': 4px,
+	// Uma variável que dark e clean podem omitir
+	'spacing': 1rem,
+	'header-upper': 1.4rem,
+	// 40px aproximado
+	'header-height': 2.6rem,
+	// 48px aproximado
+	'header2-height': 2.4rem,
+	// 40px aproximado
+	'header3-height': 2rem,
+	// 40px aproximado
+	'footer-height': 3.125rem, // 50px aproximado
+);

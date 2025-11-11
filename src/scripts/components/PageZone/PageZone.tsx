@@ -329,6 +329,8 @@ export function PageZone({
 			className={twMerge(
 				finalClass,
 				'flex flex-col min-h-dvh', // 🚩 Garante altura mínima da janela
+				'page-zone-root',
+				'',
 			)}
 		>
 			{/* Header */}
