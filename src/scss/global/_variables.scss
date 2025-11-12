@@ -1,7 +1,9 @@
-// src/styles/main.scss
+// src/scss/global/_variables.scss
 @use './config' as cfg;
 @use 'sass:map'; // Adicionado uso para map.get na iteração
 @use './variables.default' as defaults;
+
+//{generate-global-css-vars.ts---insection-here-dont-remove-or-change}
 
 // Mixin que gera as propriedades CSS (--th-ID: valor;)
 @mixin generate-theme-vars($theme-map) {

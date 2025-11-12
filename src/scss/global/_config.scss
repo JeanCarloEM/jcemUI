@@ -2,9 +2,9 @@
 @use 'sass:map';
 @use 'sass:string';
 
-$css-var-prefix: 'th';
+//{generate-global-css-vars.ts---insection-here-dont-remove-or-change}
 
-// $auto-var-map é injetado virtualmente aqui pelo Vite/TS!
+$css-var-prefix: 'th';
 
 // Função para retornar a propriedade CSS completa (ex: var(--th-0a))
 @function get($sass-var-name) {

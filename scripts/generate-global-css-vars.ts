@@ -3,6 +3,19 @@ import * as path from 'path';
 import type { Plugin } from 'vite';
 import { convertToBase32, BASE10_ALPHABET } from './base';
 
+const REPLACE_INJECT =
+	/\n\s*\/\/\s*\{generate-global-css-vars\.ts[^\n]*\n/i;
+
+const REPLACE_INJECT_START = `// [START INJECTION]: generate-global-css-vars.ts:`;
+const REPLACE_INJECT_END = `// [END INJECTION]: generate-global-css-vars.ts.`;
+
+function INECT(to: string, x: string): string {
+	return to.replace(
+		REPLACE_INJECT,
+		`\n\n${REPLACE_INJECT_START}\n${x}\n${REPLACE_INJECT_END}\n\n`,
+	);
+}
+
 // --- Configuração de Caminhos ---
 const SKINS_DIR_ROOT = './src/scss/global/skins/';
 const DEFAULT_VARS_FILE_PATH =
@@ -103,7 +116,7 @@ function generateAllThemeConfig(): ThemeConfigData {
 			info.path,
 		);
 
-		useStatementsSassString += `@use './${relativePath}' as ${info.name};\n`;
+		useStatementsSassString += `@use '${path.normalize(`./${relativePath}`)}' as ${info.name};\n`;
 	});
 
 	// --- 3. Geração do MAPA DE SKINS ($themes) ---
@@ -141,9 +154,16 @@ function injectMapIn_Config(): Plugin {
 		transform(code, id) {
 			if (compare(id, CONFIG_FILE_PATH)) {
 				// Injetando o mapa de variáveis no início do código SCSS
-				const modifiedCode =
-					generatedConfig.autoVarMapSassString + '\n' + code;
-				console.log(modifiedCode);
+				const modifiedCode = INECT(
+					code,
+					generatedConfig.autoVarMapSassString,
+				);
+
+				console.log(
+					`\n============================================================================\n`,
+					modifiedCode,
+					`\n------------------------------------------------------------------------------------------------------------\n`,
+				);
 				return modifiedCode;
 			}
 			return code;
@@ -159,13 +179,15 @@ function injectThemeIn_variables(): Plugin {
 		transform(code, id) {
 			if (compare(id, MAIN_VARS_FILE_PATH)) {
 				// Injetando as declarações @use e o mapa de temas no arquivo _variables.scss
-				const injection =
-					generatedConfig.useStatementsSassString +
-					'\n' +
-					generatedConfig.themesMapSassString +
-					'\n';
-				const modifiedCode = injection + code;
-				console.log(modifiedCode);
+				const modifiedCode = INECT(
+					code,
+					`${generatedConfig.useStatementsSassString}\n${generatedConfig.themesMapSassString}`,
+				);
+				console.log(
+					`\n============================================================================\n`,
+					modifiedCode,
+					`\n------------------------------------------------------------------------------------------------------------\n`,
+				);
 				return modifiedCode;
 			}
 			return code;
@@ -175,6 +197,6 @@ function injectThemeIn_variables(): Plugin {
 
 // Exportando os plugins Vite de forma síncrona
 export const sassThemePlugins = [
-	injectMapIn_Config(),
 	injectThemeIn_variables(),
+	injectMapIn_Config(),
 ];
