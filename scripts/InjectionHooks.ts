@@ -13,7 +13,7 @@ function showFile(x: string, p: string = '?'): void {
 	);
 }
 
-function escapeRegExp(string: string): string {
+export function _EscapeRegExp(string: string): string {
 	return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
@@ -205,13 +205,13 @@ export function FileInjectionHooks(
 				const REGEX = new RegExp(
 					INJECTION_BLOCK_REGEX.replace(
 						`|||`,
-						escapeRegExp(commentSyntax.start),
+						_EscapeRegExp(commentSyntax.start),
 					),
 					'i',
 				);
 				const startComment = `\n${commentSyntax.start}[START INJECTION]: generate-global-css-vars.ts:${commentSyntax.end}\n`;
 				const endComment = `\n${commentSyntax.start}[END INJECTION]: generate-global-css-vars.ts.${commentSyntax.end}\n`;
-				console.log(`+++++++++++++++++++++++++++++++ ${REGEX}`);
+
 				const injectedCode = originalCode.replace(
 					REGEX,
 					`\n${startComment}\n${hooks[id].getContent()}\n${endComment}\n`,

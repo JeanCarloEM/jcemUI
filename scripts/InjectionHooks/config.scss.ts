@@ -1,13 +1,14 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import type { IInjectionHook } from '../InjectionHooks';
+import { _EscapeRegExp, IInjectionHook } from '../InjectionHooks';
 import { convertToBase32, BASE10_ALPHABET } from '../base';
 
 // --- Configuração de Caminhos ---
 const SKINS_DIR_ROOT = './src/scss/global/skins/';
 const DEFAULT_VARS_FILE_PATH =
 	'./src/scss/global/_variables.default.scss';
-const CONFIG_FILE_PATH = './src/scss/global/_config.scss';
+const CONFIG_FILE_PATH = 'src/scss/global/_config.scss';
+const TARGET_REGEX = new RegExp(_EscapeRegExp(CONFIG_FILE_PATH), 'i');
 
 // --- Lógica de Geração de ID Único (Interna) ---
 const generatedIds = new Map<string, string>();
@@ -74,7 +75,7 @@ function generateConfigContent(): string {
 export function config_scss(): IInjectionHook {
 	return {
 		filePath: CONFIG_FILE_PATH,
-		isMatch: /\/src\/scss\/global\/_?config\.scss$/i,
+		isMatch: TARGET_REGEX,
 		getContent: () => generateConfigContent(),
 	};
 }

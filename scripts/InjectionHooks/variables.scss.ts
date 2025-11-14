@@ -1,11 +1,15 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import type { IInjectionHook } from '../InjectionHooks';
+import { _EscapeRegExp, IInjectionHook } from '../InjectionHooks';
 
 // --- Configuração de Caminhos ---
 const SKINS_DIR_ROOT = './src/scss/global/skins/';
 const CONFIG_FILE_PATH = './src/scss/global/_config.scss';
-const MAIN_VARS_FILE_PATH = './src/scss/global/_variables.scss';
+const MAIN_VARS_FILE_PATH = 'src/scss/global/_variables.scss';
+const TARGET_REGEX = new RegExp(
+	_EscapeRegExp(MAIN_VARS_FILE_PATH),
+	'i',
+);
 
 // --- Lógica Central de Processamento para variablesHook ---
 function generateVariablesContent(): string {
@@ -57,7 +61,7 @@ function generateVariablesContent(): string {
 export function variables_scss(): IInjectionHook {
 	return {
 		filePath: MAIN_VARS_FILE_PATH,
-		isMatch: /\/src\/scss\/global\/_?variables\.scss$/i,
+		isMatch: TARGET_REGEX,
 		getContent: () => generateVariablesContent(), // Chama a lógica de geração
 	};
 }
