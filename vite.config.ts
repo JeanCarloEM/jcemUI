@@ -6,7 +6,9 @@ import { execSync } from 'child_process';
 import { transformWithEsbuild } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 
-import { sassThemePlugins } from './scripts/generate-global-css-vars';
+import { FileInjectionHooks } from './scripts/InjectionHooks';
+import { config_scss } from './scripts/InjectionHooks/config.scss.ts';
+import { variables_scss } from './scripts/InjectionHooks/variables.scss.ts';
 
 // Resolve caminho para ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +38,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 export default defineConfig(({ mode }) => ({
 	plugins: [
+		FileInjectionHooks([variables_scss(), config_scss()]),
 		preact(),
 		tailwindcss(),
 		{
@@ -106,7 +109,6 @@ export default defineConfig(({ mode }) => ({
 				}
 			},
 		},
-		...sassThemePlugins,
 	],
 	build: {
 		outDir: 'dist/www',
@@ -148,6 +150,7 @@ export default defineConfig(({ mode }) => ({
 			'@s': path.resolve(__dirname, 'src/assets/s'),
 		},
 	},
+
 	test: {
 		globals: true,
 		environment: 'jsdom',

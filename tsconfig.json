@@ -9,7 +9,11 @@
 		}
 	},
 	"types": ["vite/client", "vitest/client", "node"],
-	"typeRoots": ["./node_modules/@types", "./src/script/ts/types"],
+	"typeRoots": [
+		"./node_modules/@types",
+		"./script/types",
+		"./src/script/ts/types"
+	],
 	"compilerOptions": {
 		"target": "es2020",
 		"module": "ESNext",
@@ -46,6 +50,7 @@
 		"src/scripts/ts/types/env.d.ts",
 		"src",
 		"scripts",
+		"scripts/types",
 		"src/scripts",
 		"src/scripts/ts"
 	]

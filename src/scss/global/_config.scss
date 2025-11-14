@@ -9,7 +9,7 @@ $css-var-prefix: 'th';
 // Função para retornar a propriedade CSS completa (ex: var(--th-0a))
 @function get($sass-var-name) {
 	// Uso de map.get()
-	$suffix: map.get($auto-var-map, $sass-var-name);
+	$suffix: map.get($__AUTO_VAR_MAP__, $sass-var-name);
 
 	@if not $suffix {
 		@error "Variável Sass desconhecida ou não mapeada: #{$sass-var-name}. Verifique se está em _variables.scss ou em algum arquivo de tema, e reinicie o Vite.";
