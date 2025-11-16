@@ -1,7 +1,7 @@
 // src/scss/global/_variables.scss
-@use './config' as cfg;
+@use './config' as CFG;
 @use 'sass:map'; // Adicionado uso para map.get na iteração
-@use './variables.default' as defaults;
+@use './variables.default' as DEFAULTS;
 
 //{generate-global-css-vars.ts---insection-here-dont-remove-or-change}
 
@@ -10,9 +10,9 @@
 	// @each funciona normalmente
 	@each $sass-var-name, $value in $theme-map {
 		@if $value != null {
-			$var-func-string: cfg.get($sass-var-name);
+			$var-func-string: CFG.get($sass-var-name);
 			// Chamada correta da função importada de _config.scss
-			$css-var-name: cfg.extract-var-name($var-func-string);
+			$css-var-name: CFG.extract-var-name($var-func-string);
 
 			#{$css-var-name}: #{$value};
 		}
@@ -22,7 +22,7 @@
 // 1. Geração do :root{} (Valores Padrão Completos)
 :root {
 	// Acessando a variável global do módulo defaults
-	@include generate-theme-vars(defaults.$theme-map);
+	@include generate-theme-vars(DEFAULTS.$theme-map);
 }
 
 // 2. Geração dos Seletores de Input Radio (Sobrescrita)
