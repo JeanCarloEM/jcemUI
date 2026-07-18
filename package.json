@@ -202,5 +202,12 @@
     ],
     "dependencies": [],
     "optionalDependencies": []
+  },
+  "agentsUpstream": {
+    "schema": 1,
+    "upstreamRepository": "jcempro/agents.md",
+    "predecessorRepositories": [
+      "JeanCarloEM/agents.md"
+    ]
   }
 }
