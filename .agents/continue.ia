@@ -18,17 +18,18 @@ FT-001|nome=Consolidacao normativa do RCF|escopo=Tecnico|objetivo=Construir o RC
   1/3 Verificar branch, arvore e autoridade das fontes [concluido]
   2/3 Resolver cenarios e estado operacional incompatível [concluido]
   3/3 Mapear contratos dos componentes e da toolchain [concluido]
-2/3 Especificacao consolidada [em andamento]
-  1/3 Definir identidade, escopo e raizes arquiteturais [em andamento]
-  2/3 Normatizar portabilidade, extensoes e dependencias opcionais [pendente]
-  3/3 Normatizar build seletivo, distribuicao, demo e validacao [pendente]
-3/3 Sincronizacao e aceite [pendente]
-  1/3 Sincronizar README com o RCF sem duplicar a SSOT [pendente]
+2/3 Especificacao consolidada [concluido]
+  1/3 Definir identidade, escopo e raizes arquiteturais [concluido]
+  2/3 Normatizar portabilidade, extensoes e dependencias opcionais [concluido]
+  3/3 Normatizar build seletivo, distribuicao, demo e validacao [concluido]
+3/3 Sincronizacao e aceite [em andamento]
+  1/3 Sincronizar README com o RCF sem duplicar a SSOT [em andamento]
   2/3 Gerar handoff e executar validacoes normativas [pendente]
   3/3 Registrar evidencias, conclusao e proximas FTs [pendente]
 verificacao=git status limpo em main; branch dev criada a partir de c859630.
+verificacao=RCF.md consolidou requisitos humanos, assets/ui.svg, README, cabecalhos TS/TSX, configuracao e toolchain.
 falha_descartada=.agents/continue.ia anterior era memoria de blog/Jekyll e nao possuia FT parseavel deste produto.
-proximo=Redigir RCF.md e validar cobertura contra as fontes auditadas.
+proximo=Sincronizar README, validar RCF e regenerar handoff.
 
 FT-002|nome=Nucleo portavel e contratos de extensao|escopo=Tecnico|objetivo=Separar o nucleo de layout dos adaptadores de framework e expor configuracao central para decisoes do consumidor.|prioridade=alta|status=pendente|dependencia=FT-001
 1/3 Contratos publicos e adaptadores [pendente]

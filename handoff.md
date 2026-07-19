@@ -26,20 +26,20 @@ Objetivo: Construir o RCF coeso e verificavel da biblioteca a partir das fontes 
 <tr>
 <td rowspan="3">Especificacao consolidada</td>
 <td>Definir identidade, escopo e raizes arquiteturais</td>
-<td><span style="color:#ca8a04">&#9679;</span> em andamento</td>
+<td><span style="color:#15803d">&#9679;</span> concluído</td>
 </tr>
 <tr>
 <td>Normatizar portabilidade, extensoes e dependencias opcionais</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
+<td><span style="color:#15803d">&#9679;</span> concluído</td>
 </tr>
 <tr>
 <td>Normatizar build seletivo, distribuicao, demo e validacao</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
+<td><span style="color:#15803d">&#9679;</span> concluído</td>
 </tr>
 <tr>
 <td rowspan="3">Sincronizacao e aceite</td>
 <td>Sincronizar README com o RCF sem duplicar a SSOT</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
+<td><span style="color:#ca8a04">&#9679;</span> em andamento</td>
 </tr>
 <tr>
 <td>Gerar handoff e executar validacoes normativas</td>
