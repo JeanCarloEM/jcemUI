@@ -11,6 +11,7 @@ decisao=O anexo prevalece no dominio de produto e sera conciliado com contratos 
 decisao=assets/ui.svg e fonte autoritativa da arquitetura visual idealizada, integrante dos contratos previamente expressos nos cabecalhos.
 decisao=Vite, Preact, React, Zag.js, Font Awesome e Web Awesome sao integracoes opcionais; nenhuma integra o nucleo obrigatorio da biblioteca.
 decisao=Font Awesome e Web Awesome podem ser defaults de conveniencia quando o consumidor nao fornece substituto nem opta por implementacao manual.
+decisao=A solicitacao de 20260719 identificou regressao normativa: mencao isolada a Web Awesome e Zag.js nao satisfaz compatibilidade com/sem, papel, opcionalidade, recomendacao e proibicao de dependencia obrigatoria.
 cache=AGENTS.md, .agents/core/concepts/microconceitos.md, .agents/core/contracts.md, cenario WEB-BROWSER, capacidade WEB-STATIC, README.md, assets/ui.svg, package.json, config/core.json, cabecalhos TS/TSX e scripts de injecao lidos em 20260719.
 
 FT-001|nome=Consolidacao normativa do RCF|escopo=Tecnico|objetivo=Construir o RCF coeso e verificavel da biblioteca a partir das fontes existentes e dos requisitos prevalentes do anexo.|prioridade=alta|status=concluido|inicio=20260719.000000|fim=20260719.000000
@@ -35,7 +36,21 @@ decisao_validacao=Nao preencher metadados locais com dados do upstream nem edita
 falha_descartada=.agents/continue.ia anterior era memoria de blog/Jekyll e nao possuia FT parseavel deste produto.
 proximo=Iniciar FT-002 somente por solicitacao/retomada, preservando a dependencia concluida FT-001.
 
-FT-002|nome=Nucleo portavel e contratos de extensao|escopo=Tecnico|objetivo=Separar o nucleo de layout dos adaptadores de framework e expor configuracao central para decisoes do consumidor.|prioridade=alta|status=pendente|dependencia=FT-001
+FT-005|nome=Correcao normativa da estrategia de compatibilidade|escopo=Tecnico|objetivo=Eliminar a regressao normativa de Web Awesome e Zag.js e declarar matriz, perfis oficiais, opcionalidade e invariantes de expansao sem duplicar a SSOT.|prioridade=critica|status=em andamento|dependencia=FT-001|inicio=20260719.000000
+1/3 Auditoria normativa [concluido]
+  1/3 Revisar integralmente RCF, README, configuracao e FTs [concluido]
+  2/3 Localizar omissoes equivalentes na matriz com e sem integracoes [concluido]
+  3/3 Registrar plano antes das alteracoes normativas [concluido]
+2/3 Correcao da SSOT [em andamento]
+  1/3 Declarar matriz completa e papeis arquiteturais no RCF [em andamento]
+  2/3 Declarar perfis principal e alternativo como recomendacoes nao obrigatorias [pendente]
+  3/3 Sincronizar apresentacao do README sem criar norma paralela [pendente]
+3/3 Aceite documental [pendente]
+  1/3 Validar termos, referencias e ausencia de contradicoes [pendente]
+  2/3 Regenerar handoff e registrar evidencias [pendente]
+  3/3 Concluir FT em commit atomico [pendente]
+
+FT-002|nome=Nucleo portavel e contratos de extensao|escopo=Tecnico|objetivo=Separar o nucleo de layout dos adaptadores de framework e expor configuracao central para decisoes do consumidor.|prioridade=alta|status=pendente|dependencia=FT-005
 1/3 Contratos publicos e adaptadores [pendente]
   1/3 Inventariar API publica e acoplamentos atuais [pendente]
   2/3 Definir nucleo independente e adaptadores vanilla, React e Preact [pendente]
@@ -76,3 +91,17 @@ FT-004|nome=Demo profissional e GitHub Pages|escopo=Tecnico|objetivo=Entregar pa
   1/3 Validar responsividade, temas e acessibilidade [pendente]
   2/3 Validar pipeline e URL publicada [pendente]
   3/3 Sincronizar README, RCF e memoria [pendente]
+
+FT-006|nome=Matriz independente de ambientes compativeis|escopo=Tecnico|objetivo=Organizar fixtures, implementacao, validacao e demonstracao independentes para toda combinacao oficial com reutilizacao de infraestrutura.|prioridade=alta|status=pendente|dependencia=FT-002
+1/3 Infraestrutura compartilhada [pendente]
+  1/3 Definir manifesto executavel da matriz de compatibilidade [pendente]
+  2/3 Criar fixtures e validadores reutilizaveis [pendente]
+  3/3 Isolar dependencias opcionais por cenario [pendente]
+2/3 Ambientes oficiais [pendente]
+  1/3 Cobrir Vanilla JavaScript, TypeScript e Sass sem framework [pendente]
+  2/3 Cobrir Vite sem framework, com React e com Preact [pendente]
+  3/3 Cobrir com e sem DaisyUI, Font Awesome, Web Awesome e Zag.js [pendente]
+3/3 Aceite e demonstracao [pendente]
+  1/3 Provar fallback sem provider de icones [pendente]
+  2/3 Integrar matriz aos comandos de teste e demonstracao [pendente]
+  3/3 Sincronizar RCF, README, memoria e handoff [pendente]
