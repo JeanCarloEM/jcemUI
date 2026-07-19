@@ -12,7 +12,15 @@ decisao=assets/ui.svg e fonte autoritativa da arquitetura visual idealizada, int
 decisao=Vite, Preact, React, Zag.js, Font Awesome e Web Awesome sao integracoes opcionais; nenhuma integra o nucleo obrigatorio da biblioteca.
 decisao=Font Awesome e Web Awesome podem ser defaults de conveniencia quando o consumidor nao fornece substituto nem opta por implementacao manual.
 decisao=A solicitacao de 20260719 identificou regressao normativa: mencao isolada a Web Awesome e Zag.js nao satisfaz compatibilidade com/sem, papel, opcionalidade, recomendacao e proibicao de dependencia obrigatoria.
-cache=AGENTS.md, .agents/core/concepts/microconceitos.md, .agents/core/contracts.md, cenario WEB-BROWSER, capacidade WEB-STATIC, README.md, assets/ui.svg, package.json, config/core.json, cabecalhos TS/TSX e scripts de injecao lidos em 20260719.
+decisao=A etapa de planejamento de 20260719 nao autoriza implementacao funcional; encerra apos diagnostico, roadmap, FTs, commit e push, aguardando solicitacao humana explicita.
+decisao=FTs amplas anteriores foram preservadas e estreitadas; novas FTs segregam core, adapters, providers, configuracao, qualidade, distribuicao, validacao, demo, publicacao e release sem sobreposicao intencional.
+cache=AGENTS.md e associados aplicaveis, RCF.md, README.md, assets/ui.svg integral, package/configuracao, 79 entradas versionadas, codigo TS/TSX/SCSS, scripts, submodulo, historico Git e extensoes locais lidos/auditados em 20260719.
+verificacao_auditoria=79 entradas versionadas; 20 TSX, 9 TS, 26 SCSS, zero teste versionado e zero workflow.
+verificacao_auditoria=agent:rcf RCF_OK; agent:typecheck e agent:lint retornaram scripts=0; TypeScript real filtrado encontrou 15 erros.
+verificacao_auditoria=Vite build e Vitest falharam no Windows ao resolver o executavel tsx chamado por execSync; lint declarado falhou por ESLint ausente.
+verificacao_auditoria=agent:verify e agent:test permanecem bloqueados em CABECALHO_CODIGO_INVALIDO do archive.js gerenciado; correcao local do core proibida.
+verificacao_auditoria=package declara nome de template, 40 devDependencies, zero dependencies, nenhuma licenca/exports/types/files/peers e ignora package-lock.json.
+verificacao_auditoria=docs/adequacao-rcf-agents.md registra diagnostico, arquitetura-alvo, fases, catalogo de FTs, riscos, migracao, validacao e rollback.
 
 FT-001|nome=Consolidacao normativa do RCF|escopo=Tecnico|objetivo=Construir o RCF coeso e verificavel da biblioteca a partir das fontes existentes e dos requisitos prevalentes do anexo.|prioridade=alta|status=concluido|inicio=20260719.000000|fim=20260719.000000
 1/3 Auditoria e classificacao normativa [concluido]
@@ -53,58 +61,306 @@ verificacao=agent:rcf retornou RCF_OK para RCF.md com matriz completa, papeis, p
 verificacao=git diff --check sem erro; busca dirigida confirmou WebAwesome, ZagJS, cenarios com/sem e perfis no RCF e README.
 proximo=Iniciar FT-002 para separar core, adaptadores e providers antes de materializar a matriz independente da FT-006.
 
-FT-002|nome=Nucleo portavel e contratos de extensao|escopo=Tecnico|objetivo=Separar o nucleo de layout dos adaptadores de framework e expor configuracao central para decisoes do consumidor.|prioridade=alta|status=pendente|dependencia=FT-005
-1/3 Contratos publicos e adaptadores [pendente]
-  1/3 Inventariar API publica e acoplamentos atuais [pendente]
-  2/3 Definir nucleo independente e adaptadores vanilla, React e Preact [pendente]
-  3/3 Definir providers para icones, componentes e estado [pendente]
-2/3 Implementacao incremental [pendente]
-  1/3 Centralizar configuracao e hooks do consumidor [pendente]
-  2/3 Preservar aliases e compatibilidade de importacao [pendente]
-  3/3 Provar uso sem Vite, React ou Preact [pendente]
-3/3 Validacao de integracao [pendente]
-  1/3 Testar npm, submodulo Git e consumo vanilla [pendente]
-  2/3 Testar adaptadores opcionais declarados [pendente]
-  3/3 Atualizar documentacao e evidencias [pendente]
+FT-002|nome=Fronteira e API do nucleo portavel|escopo=Tecnico|objetivo=Definir e materializar somente a fronteira publica neutra do core, classificando contratos sem tipos obrigatorios de framework/provider.|prioridade=critica|status=pendente|dependencia=FT-011,FT-012
+1/2 Contrato publico neutro [pendente]
+  1/3 Caracterizar exports, seletores, atributos e aliases atuais [pendente]
+  2/3 Classificar core, adapter, provider, theme e utility [pendente]
+  3/3 Definir tipos e erros sem Preact, React, Vite ou provider [pendente]
+2/2 Fronteira verificavel [pendente]
+  1/3 Materializar entrypoint interno do core sem implementar adapters [pendente]
+  2/3 Preservar compatibilidade por facade/alias versionado [pendente]
+  3/3 Provar grafo de imports neutro e sincronizar evidencias [pendente]
 
-FT-003|nome=Build seletivo e distribuicao eficiente|escopo=Tecnico|objetivo=Publicar somente codigo, estilos, icones e configuracao efetivamente usados em cada target, com cache e formatos adequados.|prioridade=alta|status=pendente|dependencia=FT-002
-1/3 Matriz de targets [pendente]
-  1/3 Declarar library, bundle, offline e demo [pendente]
-  2/3 Definir tree-shaking, exports e side effects [pendente]
-  3/3 Definir politicas de assets locais e CDN [pendente]
-2/3 Pipeline seletivo [pendente]
-  1/3 Isolar geradores de icones e estilos usados [pendente]
-  2/3 Produzir artefatos autonomos e cacheaveis [pendente]
-  3/3 Impedir vazamento de fonte e ferramenta de desenvolvimento [pendente]
-3/3 Conformidade [pendente]
-  1/3 Medir conteudo e dependencias por target [pendente]
-  2/3 Testar reproducibilidade e instalacao limpa [pendente]
-  3/3 Validar licencas e cabecalhos dos artefatos [pendente]
+FT-003|nome=Orquestracao de targets seletivos|escopo=Tecnico|objetivo=Gerar os targets declarados lib, adapters, www, bundle e offline em saidas limpas, independentes e mensuraveis.|prioridade=critica|status=pendente|dependencia=FT-025,FT-028,FT-037
+1/2 Pipeline por target [pendente]
+  1/3 Consumir roots/entradas somente da configuracao central [pendente]
+  2/3 Isolar limpeza, cache, hooks e saida de cada target [pendente]
+  3/3 Aplicar tree-shaking e side effects declarados [pendente]
+2/2 Aceite de artefato [pendente]
+  1/3 Impedir fonte, demo, teste e adapter nao selecionado [pendente]
+  2/3 Medir conteudo, dependencias, bytes e hashes [pendente]
+  3/3 Provar build limpo e reprodutivel [pendente]
 
-FT-004|nome=Demo profissional e GitHub Pages|escopo=Tecnico|objetivo=Entregar pagina publica leve com documentacao, links, temas claro/escuro e demo equivalente a suite visual da biblioteca.|prioridade=media|status=pendente|dependencia=FT-003
+FT-004|nome=Demo canonica compartilhada|escopo=Tecnico|objetivo=Entregar a demo leve que reutiliza fixtures e cobre integralmente a arquitetura SVG, temas e integracoes sem incorporar a publicacao Pages.|prioridade=alta|status=pendente|dependencia=FT-003,FT-017,FT-018,FT-019,FT-020,FT-021,FT-022,FT-023,FT-032
 1/3 Experiencia e cobertura [pendente]
   1/3 Definir casos de composicao e subaplicativos aninhados [pendente]
   2/3 Definir tema claro/escuro e alternancia acessivel [pendente]
   3/3 Vincular repositorio e pacote NPM quando publicado [pendente]
-2/3 Implementacao estatica [pendente]
+2/3 Implementacao da demo [pendente]
   1/3 Construir pagina e demo com assets seletivos [pendente]
-  2/3 Configurar artefato Pages sem vazamento de src [pendente]
+  2/3 Produzir o target www local sem vazamento de src [pendente]
   3/3 Reutilizar os mesmos casos na validacao visual [pendente]
-3/3 Publicacao e aceite [pendente]
+3/3 Aceite local [pendente]
   1/3 Validar responsividade, temas e acessibilidade [pendente]
-  2/3 Validar pipeline e URL publicada [pendente]
+  2/3 Validar HTML e assets em servidor local [pendente]
   3/3 Sincronizar README, RCF e memoria [pendente]
 
-FT-006|nome=Matriz independente de ambientes compativeis|escopo=Tecnico|objetivo=Organizar fixtures, implementacao, validacao e demonstracao independentes para toda combinacao oficial com reutilizacao de infraestrutura.|prioridade=alta|status=pendente|dependencia=FT-002
+FT-006|nome=Infraestrutura da matriz independente|escopo=Tecnico|objetivo=Organizar manifesto, fixtures e isolamento de instalacao reutilizaveis para toda combinacao oficial, sem implementar cada adapter/provider nesta FT.|prioridade=critica|status=pendente|dependencia=FT-002,FT-012,FT-026
 1/3 Infraestrutura compartilhada [pendente]
   1/3 Definir manifesto executavel da matriz de compatibilidade [pendente]
   2/3 Criar fixtures e validadores reutilizaveis [pendente]
   3/3 Isolar dependencias opcionais por cenario [pendente]
-2/3 Ambientes oficiais [pendente]
-  1/3 Cobrir Vanilla JavaScript, TypeScript e Sass sem framework [pendente]
-  2/3 Cobrir Vite sem framework, com React e com Preact [pendente]
-  3/3 Cobrir com e sem DaisyUI, Font Awesome, Web Awesome e Zag.js [pendente]
+2/3 Contratos de ambientes oficiais [pendente]
+  1/3 Declarar Vanilla JavaScript, TypeScript e Sass sem framework [pendente]
+  2/3 Declarar Vite sem framework, com React e com Preact [pendente]
+  3/3 Declarar com e sem DaisyUI, Font Awesome, Web Awesome e Zag.js [pendente]
 3/3 Aceite e demonstracao [pendente]
   1/3 Provar fallback sem provider de icones [pendente]
-  2/3 Integrar matriz aos comandos de teste e demonstracao [pendente]
+  2/3 Integrar matriz aos comandos de teste sem falso positivo [pendente]
   3/3 Sincronizar RCF, README, memoria e handoff [pendente]
+
+FT-007|nome=Diagnostico e roadmap integral de adequacao|escopo=Tecnico|objetivo=Registrar o estado atual, divergencias, arquitetura-alvo, fases, riscos, migracao, validacao, rollback e todas as FTs sem alterar comportamento.|prioridade=critica|status=concluido|dependencia=nenhuma|inicio=20260719.000000|fim=20260719.000000
+1/2 Auditoria integral [concluido]
+  1/3 Ler normas, estrutura, codigo, scripts, configuracao, assets e historico [concluido]
+  2/3 Executar diagnosticos nao funcionais e registrar evidencias [concluido]
+  3/3 Classificar aderencia, riscos, divida e oportunidades [concluido]
+2/2 Planejamento e publicacao [concluido]
+  1/3 Consolidar roadmap, dependencias, criterios e rollback [concluido]
+  2/3 Registrar FTs e regenerar handoff [concluido]
+  3/3 Commitar e publicar em dev sem iniciar implementacao [concluido]
+verificacao=docs/adequacao-rcf-agents.md e README registrados; 37 FTs unicas no estado, 34 futuras ativas e handoff derivado coerente.
+verificacao=git diff --check sem erro; SVG XML valido com viewBox 0 0 210 297, 27 textos e 19 retangulos.
+verificacao=commit atomico documental criado; push de dev e verificacao remota compoem o encerramento imediato desta execucao.
+proximo=Aguardar solicitacao humana explicita e iniciar FT-008; nenhuma implementacao funcional autorizada automaticamente.
+
+FT-008|nome=Saneamento das extensoes locais de governanca|escopo=Tecnico|objetivo=Remover ou isolar regras locais herdadas de blog/Jekyll, preservando integralmente o nucleo gerenciado.|prioridade=critica|status=pendente|dependencia=FT-007
+1/2 Classificacao local [pendente]
+  1/2 Auditar agents.local.md, webPageLike.md e .autoupdate.md ignorados [pendente]
+  2/2 Definir extensao jcemUI minima e subordinada [pendente]
+2/2 Convergencia [pendente]
+  1/2 Aplicar somente em paths locais autorizados [pendente]
+  2/2 Provar ausencia de regra Jekyll/blog ativa [pendente]
+
+FT-009|nome=Desbloqueio upstream da validacao gerenciada|escopo=Tecnico|objetivo=Resolver a falha de cabecalho do archive.js pela via formal de update/contribuicao upstream, sem patch local do core.|prioridade=critica|status=pendente|dependencia=FT-008
+1/2 Causa e proposta [pendente]
+  1/2 Reproduzir contrato metadata versus cabecalho gerenciado [pendente]
+  2/2 Preparar/aplicar correcao upstream rastreavel [pendente]
+2/2 Aceite [pendente]
+  1/2 Atualizar governanca pelo comando canonico [pendente]
+  2/2 Provar que agent:verify alcanca o produto [pendente]
+
+FT-010|nome=Segregacao das raizes arquiteturais|escopo=Tecnico|objetivo=Separar fisicamente biblioteca, demo, fixtures, testes, gerados e targets sem quebrar imports publicos.|prioridade=critica|status=pendente|dependencia=FT-009
+1/2 Mapa e migracao [pendente]
+  1/2 Declarar roots/targets na configuracao e plano de renames [pendente]
+  2/2 Mover fonte e demo em commits rastreaveis [pendente]
+2/2 Aceite [pendente]
+  1/2 Atualizar aliases/scripts sem paths fantasmas [pendente]
+  2/2 Provar que fonte interna nao vaza ao target [pendente]
+
+FT-011|nome=Fronteira do submodulo jcemTS|escopo=Tecnico|objetivo=Eliminar o ciclo jcemUI-jcemTS e tornar a dependencia unidirecional, versionada e reproduzivel.|prioridade=critica|status=pendente|dependencia=FT-010
+1/2 Contrato de dependencia [pendente]
+  1/2 Classificar utilitarios importados e imports reversos @ext [pendente]
+  2/2 Definir extracao, adapter ou API neutra [pendente]
+2/2 Convergencia [pendente]
+  1/2 Limpar .gitmodules e fixar commit/clone do submodulo [pendente]
+  2/2 Provar dependencia unidirecional em clone limpo [pendente]
+
+FT-012|nome=Manifesto de produto e hooks comuns|escopo=Tecnico|objetivo=Materializar configuracao versionada do jcemUI e contratos de hook independentes de Vite.|prioridade=critica|status=pendente|dependencia=FT-010
+1/2 Configuracao [pendente]
+  1/2 Criar manifesto/schema para providers, targets, assets, tema e validacao [pendente]
+  2/2 Implementar precedencia API-ambiente-consumidor-default [pendente]
+2/2 Extensao [pendente]
+  1/2 Tipar fases, entradas, saidas, ordem, erros e dispose dos hooks [pendente]
+  2/2 Provar uso equivalente por NPM e submodulo sem Vite [pendente]
+
+FT-013|nome=Esqueleto DOM e Vanilla|escopo=Tecnico|objetivo=Implementar o esqueleto autoritativo de assets/ui.svg com Web APIs e tipos neutros.|prioridade=critica|status=pendente|dependencia=FT-002
+1/2 Estrutura [pendente]
+  1/2 Implementar PageZone, HeaderZone/HeaderBar e FooterZone neutros [pendente]
+  2/2 Implementar EnclosureContent, ContentWrapper e zonas laterais [pendente]
+2/2 Aceite [pendente]
+  1/2 Preservar zonas, ordem, seletores e ausencia de scroll interno [pendente]
+  2/2 Provar consumo JavaScript/TypeScript/Sass sem framework [pendente]
+
+FT-014|nome=Composicao, nesting e escopos|escopo=Tecnico|objetivo=Validar ordem, XOR, agrupamento, heranca e isolamento de PageZone sem mutar entradas do consumidor.|prioridade=critica|status=pendente|dependencia=FT-013
+1/2 Regras estruturais [pendente]
+  1/2 Implementar validador e severidades configuraveis [pendente]
+  2/2 Implementar IDs/escopos e nesting herdado/sobrescrito [pendente]
+2/2 Compatibilidade [pendente]
+  1/2 Preservar aliases e diagnosticos acionaveis [pendente]
+  2/2 Caracterizar seletores/atributos e nao mutacao [pendente]
+
+FT-015|nome=Tokens Sass e temas neutros|escopo=Tecnico|objetivo=Consolidar uma fonte Sass e Custom Properties publicas para temas claro/escuro sem DaisyUI/Tailwind obrigatorios.|prioridade=critica|status=pendente|dependencia=FT-013
+1/2 Contrato tematico [pendente]
+  1/2 Unificar mapas, nomes, fallbacks e escopo de subaplicativo [pendente]
+  2/2 Remover imports quebrados e rede/CDN implicita [pendente]
+2/2 Aceite [pendente]
+  1/2 Emitir CSS minimo particionavel por componente/tema [pendente]
+  2/2 Provar claro/escuro e consumo Sass sem integracao visual [pendente]
+
+FT-016|nome=Interacao nativa e acessibilidade|escopo=Tecnico|objetivo=Implementar estados, foco, teclado e semantica do core com HTML/CSS/Web APIs antes de adapters de estado.|prioridade=critica|status=pendente|dependencia=FT-014,FT-015
+1/2 Controles [pendente]
+  1/2 Tornar ButtonX, MenuX e NavIcon semanticamente acessiveis [pendente]
+  2/2 Implementar expanded/collapsed, fechamento e foco nativos [pendente]
+2/2 Aceite [pendente]
+  1/2 Validar teclado, toque, contraste e reducao de movimento [pendente]
+  2/2 Provar degradacao sem JavaScript opcional [pendente]
+
+FT-017|nome=Adapter Preact|escopo=Tecnico|objetivo=Expor o core por Preact como peer opcional sem divergir DOM, API ou estilos.|prioridade=alta|status=pendente|dependencia=FT-016
+1/2 Implementacao [pendente]
+  1/2 Mapear props/eventos/children para contratos do core [pendente]
+  2/2 Preservar facade e aliases do adapter legado [pendente]
+2/2 Aceite [pendente]
+  1/2 Comparar DOM/seletores/estados com Vanilla [pendente]
+  2/2 Provar pacote sem Preact quando entrada nao selecionada [pendente]
+
+FT-018|nome=Adapter React|escopo=Tecnico|objetivo=Expor o core por React como peer opcional e equivalente aos demais renderizadores.|prioridade=alta|status=pendente|dependencia=FT-016
+1/2 Implementacao [pendente]
+  1/2 Mapear props/eventos/children sem compartilhar runtime Preact [pendente]
+  2/2 Isolar tipos e entrypoint React [pendente]
+2/2 Aceite [pendente]
+  1/2 Comparar DOM/seletores/estados com Vanilla [pendente]
+  2/2 Provar pacote sem React quando entrada nao selecionada [pendente]
+
+FT-019|nome=Ponte opcional Vite|escopo=Tecnico|objetivo=Adaptar Vite ao contrato comum de hooks/targets sem manter logica exclusiva de produto no bundler.|prioridade=alta|status=pendente|dependencia=FT-012,FT-017,FT-018
+1/2 Ponte [pendente]
+  1/2 Extrair fabrica comum e eliminar configs duplicadas [pendente]
+  2/2 Receber roots/targets/hooks do manifesto [pendente]
+2/2 Aceite [pendente]
+  1/2 Provar Vite sem framework, com React e com Preact [pendente]
+  2/2 Provar core/consumidor sem Vite [pendente]
+
+FT-020|nome=Provider de icones e Font Awesome|escopo=Tecnico|objetivo=Desacoplar icones do core e oferecer fallback, implementacao manual e Font Awesome seletivo.|prioridade=alta|status=pendente|dependencia=FT-016
+1/2 Contrato [pendente]
+  1/2 Definir nome acessivel, renderer, erro e fallback [pendente]
+  2/2 Implementar provider Font Awesome em entrypoint separado [pendente]
+2/2 Aceite [pendente]
+  1/2 Provar com/sem Font Awesome e sem provider [pendente]
+  2/2 Medir somente icones/estilos selecionados [pendente]
+
+FT-021|nome=Provider WebAwesome|escopo=Tecnico|objetivo=Integrar primitives WebAwesome por provider substituivel sem dependencia obrigatoria no core.|prioridade=alta|status=pendente|dependencia=FT-016
+1/2 Provider [pendente]
+  1/2 Mapear primitives aplicaveis e fallback nativo [pendente]
+  2/2 Implementar registro, carregamento e falha controlados [pendente]
+2/2 Aceite [pendente]
+  1/2 Provar com/sem WebAwesome em instalacoes separadas [pendente]
+  2/2 Impedir download/runtime implicito sem configuracao [pendente]
+
+FT-022|nome=Adapter ZagJS|escopo=Tecnico|objetivo=Aprimorar maquinas de estado/interacao com ZagJS sem substituir o estado basico nativo.|prioridade=alta|status=pendente|dependencia=FT-016
+1/2 Adapter [pendente]
+  1/2 Mapear menus, foco e expansao ao contrato neutro [pendente]
+  2/2 Implementar lifecycle e dispose isolados [pendente]
+2/2 Aceite [pendente]
+  1/2 Provar equivalencia com/sem ZagJS [pendente]
+  2/2 Impedir tipos/dependencias ZagJS no core [pendente]
+
+FT-023|nome=Integracao DaisyUI e Tailwind|escopo=Tecnico|objetivo=Oferecer classes/tokens DaisyUI/Tailwind opcionais sem alterar o funcionamento e estilo minimo do core.|prioridade=alta|status=pendente|dependencia=FT-015
+1/2 Integracao [pendente]
+  1/2 Mapear tokens/classes para o contrato tematico [pendente]
+  2/2 Isolar plugin, merge e variants em entrypoint proprio [pendente]
+2/2 Aceite [pendente]
+  1/2 Provar com/sem DaisyUI e Tailwind [pendente]
+  2/2 Comparar semantica e seletores publicos [pendente]
+
+FT-024|nome=Identidade, dependencias e lock do pacote|escopo=Tecnico|objetivo=Corrigir metadata real do jcemUI, classificar dependencias e tornar instalacao reproduzivel.|prioridade=critica|status=pendente|dependencia=FT-010
+1/2 Manifesto [pendente]
+  1/2 Declarar nome, descricao, versao, MPL-2.0, repositorio e engines [pendente]
+  2/2 Auditar/remover/justificar dependencies, dev e peers [pendente]
+2/2 Reproducibilidade [pendente]
+  1/2 Versionar lock compativel e validar instalacao limpa [pendente]
+  2/2 Preservar campos gerenciados de agentsGovernance [pendente]
+
+FT-025|nome=Entrypoints, tipos e exports publicos|escopo=Tecnico|objetivo=Publicar entradas condicionais independentes para core, adapters, providers, themes e utilities.|prioridade=alta|status=pendente|dependencia=FT-017,FT-018,FT-019,FT-020,FT-021,FT-022,FT-023,FT-024
+1/2 Superficie publica [pendente]
+  1/2 Definir exports, types, files, peers opcionais e sideEffects [pendente]
+  2/2 Emitir declaracoes sem tipos acidentais de integracao [pendente]
+2/2 Compatibilidade [pendente]
+  1/2 Preservar aliases com deprecacao versionada [pendente]
+  2/2 Testar imports isolados de cada entrypoint [pendente]
+
+FT-026|nome=Scripts e gates multiplataforma reais|escopo=Tecnico|objetivo=Fazer lint, typecheck, test e build executarem os arquivos reais em Windows/Linux sem falso positivo.|prioridade=critica|status=pendente|dependencia=FT-009,FT-010,FT-024
+1/2 API operacional [pendente]
+  1/2 Corrigir paths, executaveis, aliases e comandos compostos [pendente]
+  2/2 Integrar ferramentas reais aos orquestradores agent/shared [pendente]
+2/2 Aceite [pendente]
+  1/2 Exigir contagens nao nulas e falhar em zero cobertura indevida [pendente]
+  2/2 Provar execucao local Windows e CI Linux [pendente]
+
+FT-027|nome=Testes unitarios e de componente|escopo=Tecnico|objetivo=Proteger composicao, props, aliases, classes, hooks, erros e acessibilidade do core/componentes.|prioridade=critica|status=pendente|dependencia=FT-016,FT-026
+1/2 Caracterizacao [pendente]
+  1/2 Cobrir comportamento publico conciliavel antes da migracao [pendente]
+  2/2 Cobrir invalidos, fallbacks e isolamento [pendente]
+2/2 Qualidade [pendente]
+  1/2 Definir cobertura e mutacao proporcional [pendente]
+  2/2 Integrar ao check sem compartilhar estado entre casos [pendente]
+
+FT-028|nome=Indexadores seletivos e deterministicos|escopo=Tecnico|objetivo=Corrigir geracao de icones, tipos e import map por roots/entradas declarados, sem escrita em fonte manual.|prioridade=alta|status=pendente|dependencia=FT-020,FT-025,FT-026
+1/2 Indexacao [pendente]
+  1/2 Substituir paths/cwd/regex insuficientes por contratos configurados [pendente]
+  2/2 Tratar referencias dinamicas por manifesto ou erro [pendente]
+2/2 Aceite [pendente]
+  1/2 Provar determinismo, hashes e exclusoes [pendente]
+  2/2 Provar Windows/Linux e ausencia de residuo em src [pendente]
+
+FT-030|nome=Targets bundle, offline e politica de assets|escopo=Tecnico|objetivo=Implementar composicoes autocontidas e decisao CDN/local/manual sem rede ou asset implicito.|prioridade=alta|status=pendente|dependencia=FT-003
+1/2 Assets [pendente]
+  1/2 Materializar politica versionada de CDN, cache e incorporacao [pendente]
+  2/2 Emitir somente recursos alcancaveis uma vez por artefato [pendente]
+2/2 Aceite [pendente]
+  1/2 Provar bundle com rede declarada e offline sem rede [pendente]
+  2/2 Medir banda, duplicacao e fallbacks [pendente]
+
+FT-032|nome=Validacao visual, responsiva e acessivel|escopo=Tecnico|objetivo=Criar harness reutilizavel que compare o SVG, temas, breakpoints, nesting, foco, toque e overflow.|prioridade=alta|status=pendente|dependencia=FT-006,FT-016,FT-027
+1/2 Harness [pendente]
+  1/2 Definir fixtures, snapshots e criterios sem pixel-lock fragil [pendente]
+  2/2 Automatizar 320, 480, 768 e 1024 px, claro/escuro [pendente]
+2/2 Aceite [pendente]
+  1/2 Validar teclado, foco, toque e reducao de movimento [pendente]
+  2/2 Detectar scroll interno e divergencia estrutural [pendente]
+
+FT-033|nome=Consumidores NPM e submodulo|escopo=Tecnico|objetivo=Validar tarball e submodulo em projetos limpos para todos os perfis e entradas suportados.|prioridade=alta|status=pendente|dependencia=FT-003,FT-006,FT-025,FT-030
+1/2 Consumidores [pendente]
+  1/2 Criar instalacoes limpas sem node_modules compartilhado [pendente]
+  2/2 Cobrir NPM, gitlink, Vanilla, Vite, React e Preact [pendente]
+2/2 Aceite [pendente]
+  1/2 Executar npm pack e importar somente entrypoint selecionado [pendente]
+  2/2 Provar ausencia de peer/provider nao usado [pendente]
+
+FT-035|nome=Pipeline e publicacao GitHub Pages|escopo=Tecnico|objetivo=Publicar o target www validado com base path, CNAME, links e assets corretos, separado de release.|prioridade=alta|status=pendente|dependencia=FT-004,FT-003,FT-036
+1/2 Pipeline [pendente]
+  1/2 Criar workflow idempotente com artifact imutavel [pendente]
+  2/2 Validar allowlist, cache, CNAME e rollback [pendente]
+2/2 Aceite [pendente]
+  1/2 Testar HTML/assets reais em servidor local [pendente]
+  2/2 Publicar e verificar URL remota quando autorizado [pendente]
+
+FT-036|nome=CI da matriz e dos artefatos|escopo=Tecnico|objetivo=Executar gates e cenarios oficiais em CI Windows/Linux com artefatos/evidencias rastreaveis.|prioridade=critica|status=pendente|dependencia=FT-003,FT-006,FT-027
+1/2 Matriz CI [pendente]
+  1/2 Orquestrar norma, lint, tipos, unidade, compatibilidade e build [pendente]
+  2/2 Isolar cache/dependencias e limitar concorrencia [pendente]
+2/2 Evidencia [pendente]
+  1/2 Persistir relatorios/artefatos sem segredo ou fonte indevida [pendente]
+  2/2 Bloquear merge diante de qualquer gate aplicavel [pendente]
+
+FT-037|nome=Cabecalhos, licencas e terceiros|escopo=Tecnico|objetivo=Aplicar metadata real de autoria/licenca em fonte e artefatos e inventariar licencas de dependencias/assets.|prioridade=alta|status=pendente|dependencia=FT-024,FT-026
+1/2 Fonte e geracao [pendente]
+  1/2 Centralizar metadata real sem inferir dado ausente [pendente]
+  2/2 Inserir/validar cabecalhos em formatos comentaveis [pendente]
+2/2 Conformidade [pendente]
+  1/2 Gerar inventario de terceiros por target [pendente]
+  2/2 Provar preservacao apos minificacao/compilacao [pendente]
+
+FT-038|nome=Documentacao de uso e API|escopo=Tecnico|objetivo=Sincronizar README, referencia de API e exemplos com a implementacao comprovada, mantendo o RCF como SSOT.|prioridade=media|status=pendente|dependencia=FT-004,FT-033,FT-035
+1/2 Conteudo [pendente]
+  1/2 Documentar instalacao, perfis, providers, hooks e targets reais [pendente]
+  2/2 Documentar Vanilla, Vite, React, Preact e submodulo [pendente]
+2/2 Aceite [pendente]
+  1/2 Executar exemplos como testes de consumidor [pendente]
+  2/2 Remover duplicacao normativa e links inexistentes [pendente]
+
+FT-039|nome=Versionamento e release da biblioteca|escopo=Tecnico|objetivo=Implementar release de versao, pacote, tag e assets separado da publicacao Pages.|prioridade=media|status=pendente|dependencia=FT-033,FT-035,FT-036,FT-038
+1/2 Processo [pendente]
+  1/2 Definir versionamento, changelog, notas, hooks e rollback [pendente]
+  2/2 Configurar workflow/credenciais sem segredo persistido [pendente]
+2/2 Aceite [pendente]
+  1/2 Ensaiar dry-run e release beta verificavel [pendente]
+  2/2 Confirmar pacote/tag/asset remoto e convergencia [pendente]
+
+FT-040|nome=Aceite global e convergencia Git|escopo=Tecnico|objetivo=Comprovar integralmente o RCF e convergir dev para a branch primaria somente sem pendencia funcional.|prioridade=critica|status=pendente|dependencia=FT-002,FT-003,FT-004,FT-006,FT-008,FT-009,FT-010,FT-011,FT-012,FT-013,FT-014,FT-015,FT-016,FT-017,FT-018,FT-019,FT-020,FT-021,FT-022,FT-023,FT-024,FT-025,FT-026,FT-027,FT-028,FT-030,FT-032,FT-033,FT-035,FT-036,FT-037,FT-038,FT-039
+1/2 Auditoria final [pendente]
+  1/2 Executar RCF §12, matriz, artefatos, visual, pacote e Pages [pendente]
+  2/2 Confirmar nenhuma regressao/API/opcionalidade pendente [pendente]
+2/2 Convergencia [pendente]
+  1/2 Concluir/comprimir FTs e validar arvore/branches [pendente]
+  2/2 Convergir dev para main/master conforme AGENTS.md [pendente]
+
+proximo=Aguardar solicitacao humana explicita; quando recebida, iniciar FT-008 e nao antecipar FT funcional dependente.

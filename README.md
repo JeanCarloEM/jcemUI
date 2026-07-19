@@ -2,7 +2,7 @@
 
 jcemUI é uma biblioteca de estrutura de layout autoaninhável para dashboards e subaplicativos. O núcleo deve ser consumível sem framework ou bundler; integrações com Vite, React, Preact, Zag.js, Font Awesome e Web Awesome são adaptadores/providers opcionais.
 
-O contrato normativo completo está em [RCF.md](RCF.md). O estado das evoluções incrementais está em [handoff.md](handoff.md). Este README apresenta a arquitetura sem substituir essas fontes.
+O contrato normativo completo está em [RCF.md](RCF.md). O estado das evoluções incrementais está em [handoff.md](handoff.md). O diagnóstico e o roadmap de adequação estão em [docs/adequacao-rcf-agents.md](docs/adequacao-rcf-agents.md). Este README apresenta a arquitetura sem substituir essas fontes.
 
 `assets/ui.svg` é a fonte autoritativa da arquitetura visual idealizada e integra o contrato dos cabeçalhos TS/TSX consolidados no RCF.
 
