@@ -148,7 +148,11 @@ FT-009|nome=Desbloqueio upstream da validacao gerenciada|escopo=Tecnico|objetivo
 verificacao=Release upstream v0.0.18 e repositorio jcempro/agents.md acessiveis; o checkout consumidor foi declarado explicitamente com papel consumer.
 verificacao=configuration.js carrega config/repository.json opcional, repo-tools.js exige metadata e o manifesto v2 omite esse arquivo embora distribua core.json e schema.json.
 verificacao=Proposta sanitizada preparada com hash 832a755ba048703d9af7e9bfe34d34e0dcb5d6fe8f724e556865f5d8eabdfd40 a partir de docs/upstream/ft-009-header-validation.json.
+verificacao=agent:upstream:publish autorizado falhou antes de qualquer efeito externo porque upstream-share.js referencia requireAuthorization inexistente na release v0.0.18.
+verificacao=Fallback formal pelo GitHub CLI publicou a proposta sanitizada em https://github.com/jcempro/agents.md/issues/2, incluindo os dois defeitos e criterios verificaveis.
 decisao=Nao alterar script gerenciado nem criar metadata local substituta; a causa deve ser corrigida no conjunto fechado publicado pelo upstream.
+correlacao_upstream=github:jcempro/agents.md#2|status=aguardando aceite humano do construtor|ft=FT-009
+proximo=Aguardar aceite humano explicito da issue upstream; apos correcao e release, executar update:agents e provar agent:verify no consumidor.
 
 FT-010|nome=Segregacao das raizes arquiteturais|escopo=Tecnico|objetivo=Separar fisicamente biblioteca, demo, fixtures, testes, gerados e targets sem quebrar imports publicos.|prioridade=critica|status=pendente|dependencia=FT-009
 1/2 Mapa e migracao [pendente]
