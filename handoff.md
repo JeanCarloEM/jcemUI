@@ -3,55 +3,6 @@
 
 Resumo operacional gerado de `.agents/continue.ia`.
 
-## FT-005 - Correcao normativa da estrategia de compatibilidade
-
-Objetivo: Eliminar a regressao normativa de Web Awesome e Zag.js e declarar matriz, perfis oficiais, opcionalidade e invariantes de expansao sem duplicar a SSOT.
-
-<table>
-<thead><tr><th>Etapa</th><th>Tarefa</th><th>Status</th></tr></thead>
-<tbody>
-<tr>
-<td rowspan="3">Auditoria normativa</td>
-<td>Revisar integralmente RCF, README, configuracao e FTs</td>
-<td><span style="color:#15803d">&#9679;</span> concluído</td>
-</tr>
-<tr>
-<td>Localizar omissoes equivalentes na matriz com e sem integracoes</td>
-<td><span style="color:#15803d">&#9679;</span> concluído</td>
-</tr>
-<tr>
-<td>Registrar plano antes das alteracoes normativas</td>
-<td><span style="color:#15803d">&#9679;</span> concluído</td>
-</tr>
-<tr>
-<td rowspan="3">Correcao da SSOT</td>
-<td>Declarar matriz completa e papeis arquiteturais no RCF</td>
-<td><span style="color:#ca8a04">&#9679;</span> em andamento</td>
-</tr>
-<tr>
-<td>Declarar perfis principal e alternativo como recomendacoes nao obrigatorias</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-<tr>
-<td>Sincronizar apresentacao do README sem criar norma paralela</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-<tr>
-<td rowspan="3">Aceite documental</td>
-<td>Validar termos, referencias e ausencia de contradicoes</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-<tr>
-<td>Regenerar handoff e registrar evidencias</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-<tr>
-<td>Concluir FT em commit atomico</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-</tbody>
-</table>
-
 ## FT-002 - Nucleo portavel e contratos de extensao
 
 Objetivo: Separar o nucleo de layout dos adaptadores de framework e expor configuracao central para decisoes do consumidor.

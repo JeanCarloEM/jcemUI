@@ -8,6 +8,40 @@ O contrato normativo completo está em [RCF.md](RCF.md). O estado das evoluçõe
 
 <img src="assets/ui.svg" alt="Diagrama Layout" style="max-height:30vh;">
 
+## Compatibilidade e independência tecnológica
+
+O núcleo utiliza contratos Web padrão e permanece framework-agnostic. Integrações nativas ampliam a experiência sem se tornarem dependências arquiteturais; novos adaptadores e providers podem ser adicionados sem alterar o core. A matriz normativa e seus critérios verificáveis estão no [RCF, §3](RCF.md#3-independência-compatibilidade-e-adaptadores) e no [RCF, §12](RCF.md#12-validação-e-critérios-de-aceite).
+
+| Cenário | Modos suportados |
+| --- | --- |
+| Vanilla | JavaScript, TypeScript e Sass, sem framework |
+| Vite | sem framework, com React ou com Preact |
+| Frameworks | React ou Preact, ambos opcionais |
+| DaisyUI | com ou sem |
+| Font Awesome | com ou sem; fallback por emoji, conteúdo acessível ou implementação manual |
+| WebAwesome / Web Awesome | com ou sem; provider/adaptador opcional |
+| ZagJS / Zag.js | com ou sem; adaptador de estado opcional |
+
+Nenhuma integração da tabela é obrigatória. Compatibilidade declarada não pode regredir, e a ausência de cada opcional deve ser validada sem dependência transitiva acidental.
+
+### Perfis oficiais recomendados
+
+- **Principal:** Vite + Preact + ZagJS + Font Awesome + WebAwesome.
+- **Alternativo:** Vanilla + Sass + Font Awesome + WebAwesome.
+
+Os perfis são recomendações oficiais, não requisitos de instalação. Cada item continua substituível ou removível conforme o contrato de providers e adaptadores do RCF.
+
+### Formas de integração e demonstração
+
+- consumo direto do core por JavaScript/TypeScript e CSS gerado de Sass;
+- adaptadores independentes para React e Preact;
+- provider substituível de ícones, com Font Awesome como opção e fallback sem provider;
+- provider/adaptador opcional de primitives com Web Awesome;
+- adaptador opcional de estado com Zag.js;
+- ponte opcional de build com Vite, sem transformar Vite em API pública.
+
+As demonstrações e fixtures independentes da matriz serão materializadas incrementalmente pelas FT-002, FT-003, FT-004 e FT-006, reutilizando casos comuns sem compartilhar dependências opcionais entre cenários.
+
 ## 🔷 Arquitetura Geral
 
 ### Componentes

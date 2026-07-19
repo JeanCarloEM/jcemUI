@@ -36,19 +36,22 @@ decisao_validacao=Nao preencher metadados locais com dados do upstream nem edita
 falha_descartada=.agents/continue.ia anterior era memoria de blog/Jekyll e nao possuia FT parseavel deste produto.
 proximo=Iniciar FT-002 somente por solicitacao/retomada, preservando a dependencia concluida FT-001.
 
-FT-005|nome=Correcao normativa da estrategia de compatibilidade|escopo=Tecnico|objetivo=Eliminar a regressao normativa de Web Awesome e Zag.js e declarar matriz, perfis oficiais, opcionalidade e invariantes de expansao sem duplicar a SSOT.|prioridade=critica|status=em andamento|dependencia=FT-001|inicio=20260719.000000
+FT-005|nome=Correcao normativa da estrategia de compatibilidade|escopo=Tecnico|objetivo=Eliminar a regressao normativa de Web Awesome e Zag.js e declarar matriz, perfis oficiais, opcionalidade e invariantes de expansao sem duplicar a SSOT.|prioridade=critica|status=concluido|dependencia=FT-001|inicio=20260719.000000|fim=20260719.000000
 1/3 Auditoria normativa [concluido]
   1/3 Revisar integralmente RCF, README, configuracao e FTs [concluido]
   2/3 Localizar omissoes equivalentes na matriz com e sem integracoes [concluido]
   3/3 Registrar plano antes das alteracoes normativas [concluido]
-2/3 Correcao da SSOT [em andamento]
-  1/3 Declarar matriz completa e papeis arquiteturais no RCF [em andamento]
-  2/3 Declarar perfis principal e alternativo como recomendacoes nao obrigatorias [pendente]
-  3/3 Sincronizar apresentacao do README sem criar norma paralela [pendente]
-3/3 Aceite documental [pendente]
-  1/3 Validar termos, referencias e ausencia de contradicoes [pendente]
-  2/3 Regenerar handoff e registrar evidencias [pendente]
-  3/3 Concluir FT em commit atomico [pendente]
+2/3 Correcao da SSOT [concluido]
+  1/3 Declarar matriz completa e papeis arquiteturais no RCF [concluido]
+  2/3 Declarar perfis principal e alternativo como recomendacoes nao obrigatorias [concluido]
+  3/3 Sincronizar apresentacao do README sem criar norma paralela [concluido]
+3/3 Aceite documental [concluido]
+  1/3 Validar termos, referencias e ausencia de contradicoes [concluido]
+  2/3 Regenerar handoff e registrar evidencias [concluido]
+  3/3 Concluir FT em commit atomico [concluido]
+verificacao=agent:rcf retornou RCF_OK para RCF.md com matriz completa, papeis, perfis e proibicao de dependencias obrigatorias.
+verificacao=git diff --check sem erro; busca dirigida confirmou WebAwesome, ZagJS, cenarios com/sem e perfis no RCF e README.
+proximo=Iniciar FT-002 para separar core, adaptadores e providers antes de materializar a matriz independente da FT-006.
 
 FT-002|nome=Nucleo portavel e contratos de extensao|escopo=Tecnico|objetivo=Separar o nucleo de layout dos adaptadores de framework e expor configuracao central para decisoes do consumidor.|prioridade=alta|status=pendente|dependencia=FT-005
 1/3 Contratos publicos e adaptadores [pendente]
