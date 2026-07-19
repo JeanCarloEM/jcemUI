@@ -123,13 +123,20 @@ verificacao=git diff --check sem erro; SVG XML valido com viewBox 0 0 210 297, 2
 verificacao=commit atomico documental criado; push de dev e verificacao remota compoem o encerramento imediato desta execucao.
 proximo=Aguardar solicitacao humana explicita e iniciar FT-008; nenhuma implementacao funcional autorizada automaticamente.
 
-FT-008|nome=Saneamento das extensoes locais de governanca|escopo=Tecnico|objetivo=Remover ou isolar regras locais herdadas de blog/Jekyll, preservando integralmente o nucleo gerenciado.|prioridade=critica|status=pendente|dependencia=FT-007
-1/2 Classificacao local [pendente]
-  1/2 Auditar agents.local.md, webPageLike.md e .autoupdate.md ignorados [pendente]
-  2/2 Definir extensao jcemUI minima e subordinada [pendente]
-2/2 Convergencia [pendente]
-  1/2 Aplicar somente em paths locais autorizados [pendente]
-  2/2 Provar ausencia de regra Jekyll/blog ativa [pendente]
+FT-008|nome=Saneamento das extensoes locais de governanca|escopo=Tecnico|objetivo=Remover ou isolar regras locais herdadas de blog/Jekyll, preservando integralmente o nucleo gerenciado.|prioridade=critica|status=concluido|dependencia=FT-007|inicio=20260719.000000|fim=20260719.000000
+1/2 Classificacao local [concluido]
+  1/2 Auditar agents.local.md, webPageLike.md e .autoupdate.md ignorados [concluido]
+  2/2 Definir extensao jcemUI minima e subordinada [concluido]
+2/2 Convergencia [concluido]
+  1/2 Aplicar somente em paths locais autorizados [concluido]
+  2/2 Provar ausencia de regra Jekyll/blog ativa [concluido]
+verificacao=update:agents -- --check confirmou release v0.0.18 atualizada e sem alteracoes normativas antes da implementacao.
+verificacao=.agents/agents.local.md versionado contem apenas contexto e limites locais subordinados; .agents/webPageLike.md e .agents/.autoupdate.md locais herdados foram removidos.
+verificacao=git diff --check sem erro; busca dirigida encontra Jekyll/blog/editorial apenas na declaracao explicita de nao aplicabilidade.
+verificacao=agent:handoff omitiu FT-008 concluida e preservou 33 FTs pendentes; agent:compress retornou COMPACT_OK sem remover nenhuma das 37 FTs.
+verificacao=agent:rcf retornou RCF_OK; agent:verify manteve exclusivamente o bloqueio gerenciado CABECALHO_CODIGO_INVALIDO de archive.js destinado a FT-009.
+decisao=Nucleo gerenciado sob .agents/core, .agents/meta e .agents/scenarios permaneceu inalterado; mudanca reutilizavel segue a via upstream.
+proximo=Iniciar FT-009 para corrigir a validacao gerenciada pela via formal upstream/update, sem patch local do core.
 
 FT-009|nome=Desbloqueio upstream da validacao gerenciada|escopo=Tecnico|objetivo=Resolver a falha de cabecalho do archive.js pela via formal de update/contribuicao upstream, sem patch local do core.|prioridade=critica|status=pendente|dependencia=FT-008
 1/2 Causa e proposta [pendente]

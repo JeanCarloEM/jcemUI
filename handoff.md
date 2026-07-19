@@ -173,34 +173,6 @@ Objetivo: Organizar manifesto, fixtures e isolamento de instalacao reutilizaveis
 </tbody>
 </table>
 
-## FT-008 - Saneamento das extensoes locais de governanca
-
-Objetivo: Remover ou isolar regras locais herdadas de blog/Jekyll, preservando integralmente o nucleo gerenciado.
-
-<table>
-<thead><tr><th>Etapa</th><th>Tarefa</th><th>Status</th></tr></thead>
-<tbody>
-<tr>
-<td rowspan="2">Classificacao local</td>
-<td>Auditar agents.local.md, webPageLike.md e .autoupdate.md ignorados</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-<tr>
-<td>Definir extensao jcemUI minima e subordinada</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-<tr>
-<td rowspan="2">Convergencia</td>
-<td>Aplicar somente em paths locais autorizados</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-<tr>
-<td>Provar ausencia de regra Jekyll/blog ativa</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-</tbody>
-</table>
-
 ## FT-009 - Desbloqueio upstream da validacao gerenciada
 
 Objetivo: Resolver a falha de cabecalho do archive.js pela via formal de update/contribuicao upstream, sem patch local do core.
