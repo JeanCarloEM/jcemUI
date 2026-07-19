@@ -4,6 +4,7 @@ node_modules
 !.agents/
 .agents/*
 !.agents/continue.ia
+!.agents/agents.local.md
 src/__generated__
 /package-lock.json
 *.psd
