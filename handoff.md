@@ -173,6 +173,34 @@ Objetivo: Organizar manifesto, fixtures e isolamento de instalacao reutilizaveis
 </tbody>
 </table>
 
+## FT-009 - Desbloqueio upstream da validacao gerenciada
+
+Objetivo: Resolver a falha de cabecalho do archive.js pela via formal de update/contribuicao upstream, sem patch local do core.
+
+<table>
+<thead><tr><th>Etapa</th><th>Tarefa</th><th>Status</th></tr></thead>
+<tbody>
+<tr>
+<td rowspan="2">Causa e proposta</td>
+<td>Reproduzir contrato metadata versus cabecalho gerenciado</td>
+<td><span style="color:#15803d">&#9679;</span> concluído</td>
+</tr>
+<tr>
+<td>Preparar/aplicar correcao upstream rastreavel</td>
+<td><span style="color:#ca8a04">&#9679;</span> em andamento</td>
+</tr>
+<tr>
+<td rowspan="2">Aceite</td>
+<td>Atualizar governanca pelo comando canonico</td>
+<td><span style="color:#64748b">&#9679;</span> pendente</td>
+</tr>
+<tr>
+<td>Provar que agent:verify alcanca o produto</td>
+<td><span style="color:#64748b">&#9679;</span> pendente</td>
+</tr>
+</tbody>
+</table>
+
 ## FT-010 - Segregacao das raizes arquiteturais
 
 Objetivo: Separar fisicamente biblioteca, demo, fixtures, testes, gerados e targets sem quebrar imports publicos.

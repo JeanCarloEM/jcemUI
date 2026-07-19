@@ -138,25 +138,21 @@ verificacao=agent:rcf retornou RCF_OK; agent:verify manteve exclusivamente o blo
 decisao=Nucleo gerenciado sob .agents/core, .agents/meta e .agents/scenarios permaneceu inalterado; mudanca reutilizavel segue a via upstream.
 proximo=Iniciar FT-009 para corrigir a validacao gerenciada pela via formal upstream/update, sem patch local do core.
 
-FT-009|nome=Desbloqueio upstream da validacao gerenciada|escopo=Tecnico|objetivo=Resolver a falha de cabecalho do archive.js pela via formal de update/contribuicao upstream, sem patch local do core.|prioridade=critica|status=concluido|dependencia=FT-008|inicio=20260719.000000|fim=20260719.220000
-1/2 Causa e proposta [concluido]
+FT-009|nome=Desbloqueio upstream da validacao gerenciada|escopo=Tecnico|objetivo=Resolver a falha de cabecalho do archive.js pela via formal de update/contribuicao upstream, sem patch local do core.|prioridade=critica|status=em andamento|dependencia=FT-008|inicio=20260719.000000
+1/2 Causa e proposta [em andamento]
   1/2 Reproduzir contrato metadata versus cabecalho gerenciado [concluido]
-  2/2 Preparar/aplicar correcao upstream rastreavel [concluido]
-2/2 Aceite [concluido]
-  1/2 Atualizar governanca pelo comando canonico [concluido]
-  2/2 Provar que agent:verify alcanca o produto [concluido]
+  2/2 Preparar/aplicar correcao upstream rastreavel [em andamento]
+2/2 Aceite [pendente]
+  1/2 Atualizar governanca pelo comando canonico [pendente]
+  2/2 Provar que agent:verify alcanca o produto [pendente]
 verificacao=Release upstream v0.0.18 e repositorio jcempro/agents.md acessiveis; o checkout consumidor foi declarado explicitamente com papel consumer.
 verificacao=configuration.js carrega config/repository.json opcional, repo-tools.js exige metadata e o manifesto v2 omite esse arquivo embora distribua core.json e schema.json.
 verificacao=Proposta sanitizada preparada com hash 832a755ba048703d9af7e9bfe34d34e0dcb5d6fe8f724e556865f5d8eabdfd40 a partir de docs/upstream/ft-009-header-validation.json.
 verificacao=agent:upstream:publish autorizado falhou antes de qualquer efeito externo porque upstream-share.js referencia requireAuthorization inexistente na release v0.0.18.
 verificacao=Fallback formal pelo GitHub CLI publicou a proposta sanitizada em https://github.com/jcempro/agents.md/issues/2, incluindo os dois defeitos e criterios verificaveis.
 decisao=Nao alterar script gerenciado nem criar metadata local substituta; a causa deve ser corrigida no conjunto fechado publicado pelo upstream.
-verificacao=Issue #2 aprovada como FT-034 upstream; releases v0.0.19 e v0.0.20 corrigiram distribuicao de metadata, autorizacao de publicacao e staging de paths gerenciados ignorados.
-verificacao=update:agents v0.0.20 concluiu, criou commits exclusivos eb35bf8 e 375d0b6 e publicou dev sem editar manualmente o core local.
-verificacao=agent:verify ultrapassou todos os cabecalhos gerenciados e alcancou o produto; o novo ENOENT em src/.agents/core/concepts/microconceitos.md e independente e migra para FT-010/FT-012.
-correlacao_upstream=github:jcempro/agents.md#2|status=aberta ate validacao global do consumidor|ft=FT-009|release=0.0.20
-decisao=Issue upstream permanece aberta por seguranca ate agent:verify global passar; FT-009 encerra somente o bloqueio de cabecalho e atualizacao formal que constituia seu objetivo.
-proximo=Iniciar FT-010 e segregar raizes; coordenar com FT-012 a configuracao que impede o runtime gerenciado de presumir fonte normativa do construtor.
+correlacao_upstream=github:jcempro/agents.md#2|status=aguardando aceite humano do construtor|ft=FT-009
+proximo=Aguardar aceite humano explicito da issue upstream; apos correcao e release, executar update:agents e provar agent:verify no consumidor.
 
 FT-010|nome=Segregacao das raizes arquiteturais|escopo=Tecnico|objetivo=Separar fisicamente biblioteca, demo, fixtures, testes, gerados e targets sem quebrar imports publicos.|prioridade=critica|status=pendente|dependencia=FT-009
 1/2 Mapa e migracao [pendente]
