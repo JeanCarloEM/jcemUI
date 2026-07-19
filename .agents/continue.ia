@@ -1,0 +1,73 @@
+schema=continue.ia/v1
+repositorio=jcemUI
+machine_id=codex-windows
+data_ref=20260719.000000
+fonte=AGENTS.md + RCF.md futuro + README.md + assets/ui.svg + cabecalhos TS/TSX + anexo da solicitacao
+cenario_WEB-BROWSER=true|evidencia=biblioteca frontend consumida por navegador
+cenario_WEB-STATIC=true|evidencia=demo e pagina publica estatica requeridas; CNAME e Vite existentes
+cenario_WEB-EDITORIAL=false|evidencia=produto nao declara classe editorial
+decisao=O estado anterior descrevia outro produto e foi substituido sem importar regras de blog/Jekyll.
+decisao=O anexo prevalece no dominio de produto e sera conciliado com contratos existentes sem alterar a governanca gerenciada.
+decisao=assets/ui.svg e fonte autoritativa da arquitetura visual idealizada, integrante dos contratos previamente expressos nos cabecalhos.
+decisao=Vite, Preact, React, Zag.js, Font Awesome e Web Awesome sao integracoes opcionais; nenhuma integra o nucleo obrigatorio da biblioteca.
+decisao=Font Awesome e Web Awesome podem ser defaults de conveniencia quando o consumidor nao fornece substituto nem opta por implementacao manual.
+cache=AGENTS.md, .agents/core/concepts/microconceitos.md, .agents/core/contracts.md, cenario WEB-BROWSER, capacidade WEB-STATIC, README.md, assets/ui.svg, package.json, config/core.json, cabecalhos TS/TSX e scripts de injecao lidos em 20260719.
+
+FT-001|nome=Consolidacao normativa do RCF|escopo=Tecnico|objetivo=Construir o RCF coeso e verificavel da biblioteca a partir das fontes existentes e dos requisitos prevalentes do anexo.|prioridade=alta|status=em_andamento|inicio=20260719.000000
+1/3 Auditoria e classificacao normativa [concluido]
+  1/3 Verificar branch, arvore e autoridade das fontes [concluido]
+  2/3 Resolver cenarios e estado operacional incompatível [concluido]
+  3/3 Mapear contratos dos componentes e da toolchain [concluido]
+2/3 Especificacao consolidada [em andamento]
+  1/3 Definir identidade, escopo e raizes arquiteturais [em andamento]
+  2/3 Normatizar portabilidade, extensoes e dependencias opcionais [pendente]
+  3/3 Normatizar build seletivo, distribuicao, demo e validacao [pendente]
+3/3 Sincronizacao e aceite [pendente]
+  1/3 Sincronizar README com o RCF sem duplicar a SSOT [pendente]
+  2/3 Gerar handoff e executar validacoes normativas [pendente]
+  3/3 Registrar evidencias, conclusao e proximas FTs [pendente]
+verificacao=git status limpo em main; branch dev criada a partir de c859630.
+falha_descartada=.agents/continue.ia anterior era memoria de blog/Jekyll e nao possuia FT parseavel deste produto.
+proximo=Redigir RCF.md e validar cobertura contra as fontes auditadas.
+
+FT-002|nome=Nucleo portavel e contratos de extensao|escopo=Tecnico|objetivo=Separar o nucleo de layout dos adaptadores de framework e expor configuracao central para decisoes do consumidor.|prioridade=alta|status=pendente|dependencia=FT-001
+1/3 Contratos publicos e adaptadores [pendente]
+  1/3 Inventariar API publica e acoplamentos atuais [pendente]
+  2/3 Definir nucleo independente e adaptadores vanilla, React e Preact [pendente]
+  3/3 Definir providers para icones, componentes e estado [pendente]
+2/3 Implementacao incremental [pendente]
+  1/3 Centralizar configuracao e hooks do consumidor [pendente]
+  2/3 Preservar aliases e compatibilidade de importacao [pendente]
+  3/3 Provar uso sem Vite, React ou Preact [pendente]
+3/3 Validacao de integracao [pendente]
+  1/3 Testar npm, submodulo Git e consumo vanilla [pendente]
+  2/3 Testar adaptadores opcionais declarados [pendente]
+  3/3 Atualizar documentacao e evidencias [pendente]
+
+FT-003|nome=Build seletivo e distribuicao eficiente|escopo=Tecnico|objetivo=Publicar somente codigo, estilos, icones e configuracao efetivamente usados em cada target, com cache e formatos adequados.|prioridade=alta|status=pendente|dependencia=FT-002
+1/3 Matriz de targets [pendente]
+  1/3 Declarar library, bundle, offline e demo [pendente]
+  2/3 Definir tree-shaking, exports e side effects [pendente]
+  3/3 Definir politicas de assets locais e CDN [pendente]
+2/3 Pipeline seletivo [pendente]
+  1/3 Isolar geradores de icones e estilos usados [pendente]
+  2/3 Produzir artefatos autonomos e cacheaveis [pendente]
+  3/3 Impedir vazamento de fonte e ferramenta de desenvolvimento [pendente]
+3/3 Conformidade [pendente]
+  1/3 Medir conteudo e dependencias por target [pendente]
+  2/3 Testar reproducibilidade e instalacao limpa [pendente]
+  3/3 Validar licencas e cabecalhos dos artefatos [pendente]
+
+FT-004|nome=Demo profissional e GitHub Pages|escopo=Tecnico|objetivo=Entregar pagina publica leve com documentacao, links, temas claro/escuro e demo equivalente a suite visual da biblioteca.|prioridade=media|status=pendente|dependencia=FT-003
+1/3 Experiencia e cobertura [pendente]
+  1/3 Definir casos de composicao e subaplicativos aninhados [pendente]
+  2/3 Definir tema claro/escuro e alternancia acessivel [pendente]
+  3/3 Vincular repositorio e pacote NPM quando publicado [pendente]
+2/3 Implementacao estatica [pendente]
+  1/3 Construir pagina e demo com assets seletivos [pendente]
+  2/3 Configurar artefato Pages sem vazamento de src [pendente]
+  3/3 Reutilizar os mesmos casos na validacao visual [pendente]
+3/3 Publicacao e aceite [pendente]
+  1/3 Validar responsividade, temas e acessibilidade [pendente]
+  2/3 Validar pipeline e URL publicada [pendente]
+  3/3 Sincronizar README, RCF e memoria [pendente]

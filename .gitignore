@@ -1,6 +1,9 @@
 node_modules
 .*/
 !.vscode
+!.agents/
+.agents/*
+!.agents/continue.ia
 src/__generated__
 /package-lock.json
 *.psd
