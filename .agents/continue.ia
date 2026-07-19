@@ -13,7 +13,7 @@ decisao=Vite, Preact, React, Zag.js, Font Awesome e Web Awesome sao integracoes 
 decisao=Font Awesome e Web Awesome podem ser defaults de conveniencia quando o consumidor nao fornece substituto nem opta por implementacao manual.
 cache=AGENTS.md, .agents/core/concepts/microconceitos.md, .agents/core/contracts.md, cenario WEB-BROWSER, capacidade WEB-STATIC, README.md, assets/ui.svg, package.json, config/core.json, cabecalhos TS/TSX e scripts de injecao lidos em 20260719.
 
-FT-001|nome=Consolidacao normativa do RCF|escopo=Tecnico|objetivo=Construir o RCF coeso e verificavel da biblioteca a partir das fontes existentes e dos requisitos prevalentes do anexo.|prioridade=alta|status=em_andamento|inicio=20260719.000000
+FT-001|nome=Consolidacao normativa do RCF|escopo=Tecnico|objetivo=Construir o RCF coeso e verificavel da biblioteca a partir das fontes existentes e dos requisitos prevalentes do anexo.|prioridade=alta|status=concluido|inicio=20260719.000000|fim=20260719.000000
 1/3 Auditoria e classificacao normativa [concluido]
   1/3 Verificar branch, arvore e autoridade das fontes [concluido]
   2/3 Resolver cenarios e estado operacional incompatível [concluido]
@@ -22,14 +22,18 @@ FT-001|nome=Consolidacao normativa do RCF|escopo=Tecnico|objetivo=Construir o RC
   1/3 Definir identidade, escopo e raizes arquiteturais [concluido]
   2/3 Normatizar portabilidade, extensoes e dependencias opcionais [concluido]
   3/3 Normatizar build seletivo, distribuicao, demo e validacao [concluido]
-3/3 Sincronizacao e aceite [em andamento]
-  1/3 Sincronizar README com o RCF sem duplicar a SSOT [em andamento]
-  2/3 Gerar handoff e executar validacoes normativas [pendente]
-  3/3 Registrar evidencias, conclusao e proximas FTs [pendente]
+3/3 Sincronizacao e aceite [concluido]
+  1/3 Sincronizar README com o RCF sem duplicar a SSOT [concluido]
+  2/3 Gerar handoff e executar validacoes normativas [concluido]
+  3/3 Registrar evidencias, conclusao e proximas FTs [concluido]
 verificacao=git status limpo em main; branch dev criada a partir de c859630.
 verificacao=RCF.md consolidou requisitos humanos, assets/ui.svg, README, cabecalhos TS/TSX, configuracao e toolchain.
+verificacao=agent:rcf retornou RCF_OK; README referencia RCF, SVG e FTs; handoff gerado pelo comando canonico.
+verificacao=git diff --check sem erro; fontes referenciadas por README/RCF existem.
+falha=npm run check retorna CABECALHO_CODIGO_INVALIDO:.agents/core/runtime/scripts/archive.js porque agent:verify exige CONFIGURATION.metadata ausente em config/core.json; o arquivo gerenciado possui cabecalho upstream correto e nao foi alterado.
+decisao_validacao=Nao preencher metadados locais com dados do upstream nem editar .agents/core; a falha global fica registrada para correcao pela via de governanca apropriada.
 falha_descartada=.agents/continue.ia anterior era memoria de blog/Jekyll e nao possuia FT parseavel deste produto.
-proximo=Sincronizar README, validar RCF e regenerar handoff.
+proximo=Iniciar FT-002 somente por solicitacao/retomada, preservando a dependencia concluida FT-001.
 
 FT-002|nome=Nucleo portavel e contratos de extensao|escopo=Tecnico|objetivo=Separar o nucleo de layout dos adaptadores de framework e expor configuracao central para decisoes do consumidor.|prioridade=alta|status=pendente|dependencia=FT-001
 1/3 Contratos publicos e adaptadores [pendente]

@@ -3,55 +3,6 @@
 
 Resumo operacional gerado de `.agents/continue.ia`.
 
-## FT-001 - Consolidacao normativa do RCF
-
-Objetivo: Construir o RCF coeso e verificavel da biblioteca a partir das fontes existentes e dos requisitos prevalentes do anexo.
-
-<table>
-<thead><tr><th>Etapa</th><th>Tarefa</th><th>Status</th></tr></thead>
-<tbody>
-<tr>
-<td rowspan="3">Auditoria e classificacao normativa</td>
-<td>Verificar branch, arvore e autoridade das fontes</td>
-<td><span style="color:#15803d">&#9679;</span> concluído</td>
-</tr>
-<tr>
-<td>Resolver cenarios e estado operacional incompatível</td>
-<td><span style="color:#15803d">&#9679;</span> concluído</td>
-</tr>
-<tr>
-<td>Mapear contratos dos componentes e da toolchain</td>
-<td><span style="color:#15803d">&#9679;</span> concluído</td>
-</tr>
-<tr>
-<td rowspan="3">Especificacao consolidada</td>
-<td>Definir identidade, escopo e raizes arquiteturais</td>
-<td><span style="color:#15803d">&#9679;</span> concluído</td>
-</tr>
-<tr>
-<td>Normatizar portabilidade, extensoes e dependencias opcionais</td>
-<td><span style="color:#15803d">&#9679;</span> concluído</td>
-</tr>
-<tr>
-<td>Normatizar build seletivo, distribuicao, demo e validacao</td>
-<td><span style="color:#15803d">&#9679;</span> concluído</td>
-</tr>
-<tr>
-<td rowspan="3">Sincronizacao e aceite</td>
-<td>Sincronizar README com o RCF sem duplicar a SSOT</td>
-<td><span style="color:#ca8a04">&#9679;</span> em andamento</td>
-</tr>
-<tr>
-<td>Gerar handoff e executar validacoes normativas</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-<tr>
-<td>Registrar evidencias, conclusao e proximas FTs</td>
-<td><span style="color:#64748b">&#9679;</span> pendente</td>
-</tr>
-</tbody>
-</table>
-
 ## FT-002 - Nucleo portavel e contratos de extensao
 
 Objetivo: Separar o nucleo de layout dos adaptadores de framework e expor configuracao central para decisoes do consumidor.
