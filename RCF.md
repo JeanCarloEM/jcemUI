@@ -44,6 +44,13 @@ TypeScript, TSX e Sass constituem a codificação-fonte padrão. Preact, Vite, D
 
 `assets/ui.svg` define a geometria visual; esta seção define sua semântica verificável:
 
+<img src="assets/ui.svg" alt="Diagrama Layout" style="max-height:30vh;">
+
+#### Notas Explicativas do Diagrama de Interface:
+*   **Abreviações Taxonômicas:** Os identificadores triliterais no diagrama são abreviações semânticas estritas de nomenclatura (ex: `Btx` = *ButtonX*; `MnX` = *MenuX*).
+*   **Polimorfismo de Estado do NavIcon:** O componente à direita pertence à mesma classe/tipo conceitual do `NavIcon`, mas é demonstrado em um estado de exibição distinto para ilustrar o comportamento dinâmico do elemento; ele renderiza de forma aberta (expandida) e sobreposta ao `ContentWrapper` — sem paridade de largura com o elemento simétrico à esquerda —, revelando o fundo por transparência conforme o estado literal `'Coll.'` (colapsado) ou `'exp'` (expandido) injetado na propriedade `View`.
+*   **Filiação Hierárquica:** Os recuos e distâncias de borda exibidos entre componentes pais e filhos servem unicamente como âncoras visuais de filiação estrutural no esquema, não definindo regras mandatórias de *margin* ou *padding* de estilização.
+
 ```text
 PageZone
 ├─ HeaderZone?                         (pilha vertical)
