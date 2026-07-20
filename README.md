@@ -8,6 +8,11 @@ O contrato normativo completo está em [RCF.md](RCF.md). O estado das evoluçõe
 
 <img src="assets/ui.svg" alt="Diagrama Layout" style="max-height:30vh;">
 
+#### Notas Explicativas do Diagrama de Interface:
+*   **Abreviações Taxonômicas:** Os identificadores triliterais no diagrama são abreviações semânticas estritas de nomenclatura (ex: `Btx` = *ButtonX*; `MnX` = *MenuX*).
+*   **Polimorfismo de Estado do NavIcon:** O componente à direita pertence à mesma classe/tipo conceitual do `NavIcon`, mas é demonstrado em um estado de exibição distinto para ilustrar o comportamento dinâmico do elemento; ele renderiza de forma aberta (expandida) e sobreposta ao `ContentWrapper` — sem paridade de largura com o elemento simétrico à esquerda —, revelando o fundo por transparência conforme o estado literal `'Coll.'` (colapsado) ou `'exp'` (expandido) injetado na propriedade `View`.
+*   **Filiação Hierárquica:** Os recuos e distâncias de borda exibidos entre componentes pais e filhos servem unicamente como âncoras visuais de filiação estrutural no esquema, não definindo regras mandatórias de *margin* ou *padding* de estilização.
+
 ## Compatibilidade e independência tecnológica
 
 O núcleo utiliza contratos Web padrão e permanece framework-agnostic. Integrações nativas ampliam a experiência sem se tornarem dependências arquiteturais; novos adaptadores e providers podem ser adicionados sem alterar o core. A matriz normativa e seus critérios verificáveis estão no [RCF, §3](RCF.md#3-independência-compatibilidade-e-adaptadores) e no [RCF, §12](RCF.md#12-validação-e-critérios-de-aceite).
