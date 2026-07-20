@@ -40,6 +40,8 @@ TypeScript, TSX e Sass constituem a codificação-fonte padrão. Preact, Vite, D
 
 ## 2. Arquitetura esquelética e composição
 
+Implementação obrigatório em Typescript + tsx + sass. Eventual produto final em nivel menor (puro js/css), deve ser transpilado.
+
 ### 2.1 Modelo canônico
 
 `assets/ui.svg` define a geometria visual; esta seção define sua semântica verificável:
