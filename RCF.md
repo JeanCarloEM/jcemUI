@@ -1,8 +1,8 @@
-# RCF — jcemUI
+# RCF — AppmiteUI
 
 ## 0. Autoridade, finalidade e conformidade
 
-Este Reference Compliance Framework é a SSOT de requisito, contrato, arquitetura e negócio do jcemUI. `AGENTS.md` e associados governam a atuação da IA; este arquivo governa o produto. Aplicam-se `AGENTS.md`, `MN-2119`, `MN-DENS`, `MN-PRES`, `MN-REF`, `MN-STATE`, `MN-VAL`, `MN-SCEN`, o cenário `WEB-BROWSER` e a capacidade `WEB-STATIC`.
+Este Reference Compliance Framework é a SSOT de requisito, contrato, arquitetura e negócio do AppmiteUI. `AGENTS.md` e associados governam a atuação da IA; este arquivo governa o produto. Aplicam-se `AGENTS.md`, `MN-2119`, `MN-DENS`, `MN-PRES`, `MN-REF`, `MN-STATE`, `MN-VAL`, `MN-SCEN`, o cenário `WEB-BROWSER` e a capacidade `WEB-STATIC`.
 
 Fontes consolidadas, já absorvidas por este RCF:
 
@@ -19,12 +19,12 @@ CONTRADIÇÃO DETECTADA: cabeçalhos TS/TSX que qualificam Preact e Vite como `c
 
 ### 1.1 Produto
 
-jcemUI é uma biblioteca de layout global para dashboards, componível e autoaninhável, destinada a hospedar subaplicativos sem impor framework, bundler, biblioteca visual ou provedor de ícones. O produto fornece geometria, composição, contratos de estado, temas, extensão e adaptadores; NÃO é a aplicação final que decide conteúdo, marca, navegação, telemetria ou regra de negócio do consumidor.
+AppmiteUI é uma biblioteca de layout global para dashboards, componível e autoaninhável, destinada a hospedar subaplicativos sem impor framework, bundler, biblioteca visual ou provedor de ícones. O produto fornece geometria, composição, contratos de estado, temas, extensão e adaptadores; NÃO é a aplicação final que decide conteúdo, marca, navegação, telemetria ou regra de negócio do consumidor.
 
 ### 1.2 Repositórios e raízes
 
-- **repositório da biblioteca**: este repositório; desenvolve, testa, empacota e demonstra jcemUI;
-- **repositório consumidor/final**: incorpora jcemUI por NPM ou submódulo Git e conserva a decisão final sobre stack, providers, assets e publicação;
+- **repositório da biblioteca**: este repositório; desenvolve, testa, empacota e demonstra AppmiteUI;
+- **repositório consumidor/final**: incorpora AppmiteUI por NPM ou submódulo Git e conserva a decisão final sobre stack, providers, assets e publicação;
 - **raiz do repositório**: contém governança, RCF, documentação, manifests, configuração e automação transversal;
 - **raiz-fonte**: `src/`; contém implementação da biblioteca e aplicação de demonstração enquanto a segregação física da FT-002 não estiver concluída;
 - **raiz da biblioteca atual**: `src/scripts/components/`, estilos associados e utilitários estritamente necessários;
@@ -175,7 +175,7 @@ Hook DEVE declarar nome, fase, entrada, saída, ordem, sincronismo, erros e efei
 
 ### 4.2 Configuração central
 
-Configuração de produto DEVE residir sob `config/`, possuir schema/versionamento e ser a única fonte mutável para providers, targets, URLs, modo de assets, tema default, validação e hooks. `config/core.json` permanece configuração operacional da governança e NÃO DEVE receber negócio do jcemUI.
+Configuração de produto DEVE residir sob `config/`, possuir schema/versionamento e ser a única fonte mutável para providers, targets, URLs, modo de assets, tema default, validação e hooks. `config/core.json` permanece configuração operacional da governança e NÃO DEVE receber negócio do AppmiteUI.
 
 A FT-002 DEVE materializar um manifesto de produto e seu schema sob `config/`. Precedência de consumo: opção explícita da API/CLI → ambiente declarado de build → manifesto do consumidor → manifesto/default da biblioteca. Default compilado DEVE conter somente o subconjunto necessário ao target.
 
@@ -300,7 +300,7 @@ Paths físicos definitivos DEVEM ser declarados na configuração do build e esp
 
 ### 10.2 Pacote
 
-Pacote NPM DEVE declarar nome real, descrição jcemUI, versão, licença MPL-2.0, repositório, exports condicionais, tipos, arquivos publicados, peers opcionais e `sideEffects` preciso. Framework/provider opcional DEVE ser peer/entry separado, nunca dependência silenciosa do núcleo. Instalação limpa do tarball é critério de aceite.
+Pacote NPM DEVE declarar nome real, descrição AppmiteUI, versão, licença MPL-2.0, repositório, exports condicionais, tipos, arquivos publicados, peers opcionais e `sideEffects` preciso. Framework/provider opcional DEVE ser peer/entry separado, nunca dependência silenciosa do núcleo. Instalação limpa do tarball é critério de aceite.
 
 ## 11. Observabilidade, erros e segurança
 
