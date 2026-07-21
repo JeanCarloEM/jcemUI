@@ -751,6 +751,8 @@ FT posterior NÃO PODE antecipar decisão incompatível com dependência anterio
 
 ## <sup>[1]</sup> PURO CSS: CSS/Sass prioritário, não exclusivo
 
+Diretriz não se aplica a componentes de terceiros.
+
 1. A implementação visual, estilística, responsiva e de estados DEVE priorizar CSS/Sass nativo sempre que este realizar o comportamento requerido de forma suficiente, robusta, acessível, sustentável e compatível com o ambiente-alvo.
 
 2. A expressão **CSS/Sass puro** refere-se à tecnologia prioritariamente responsável pela estilização, pelo leiaute, pela responsividade e pelos estados visuais declarativos. Ela NÃO implica:
