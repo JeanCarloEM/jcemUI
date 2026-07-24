@@ -2007,7 +2007,7 @@
       consumidores do núcleo ou de outro perfil sem solicitação explícita.
 
   - **Ordem de implementação**
-    - Executar, no mínimo, na seguinte sequência:
+    - Executar, no mínimo, na seguinte sequência, registrando obrigatoriamente, e previamente, na RCF/(planejamento de FTs, etapas e tarefas) com commit imeditado e exclusivo para os mesmos, antes de efetivamente refletir/implementar em código ou alteração de dirertórios/scripts:
       1. inspecionar normas, implementação, build e dependências existentes;
       2. modelar conceitos, autoridade e hierarquia;
       3. separar árvore lógica, representação visual, árvore de framework e
