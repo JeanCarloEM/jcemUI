@@ -4,7 +4,8 @@
       TypeScript e independente de UI, com comunicação vertical bidirecional,
       árvore lógica de autoridade, agregação em cascata, controle operacional
       descendente, manifestos, hooks, contratos reutilizáveis e integrações
-      opcionais com React ou Preact, sem corromper as diretrizes, regras de negócio,
+      opcionais com React, Preact e Zag.js, isoladas e combináveis conforme perfis
+      explicitamente suportados, sem corromper as diretrizes, regras de negócio,
       isolamento, estrutura, comportamento, compatibilidade, segurança, resiliência
       ou recursos atuais do projeto.
   - **Natureza e finalidade**
@@ -47,7 +48,8 @@
       monitoramento e controle hierárquicos sem transformar `PageZone` em:
       - componente monolítico;
       - controlador global irrestrito;
-      - dependência obrigatória de React, Preact ou outro framework;
+      - dependência obrigatória de React, Preact, Zag.js ou outro framework,
+        toolkit ou runtime opcional;
       - fonte única de verdade acoplada ao DOM;
       - implementação incompatível com componentes externos equivalentes.
 
@@ -60,7 +62,8 @@
       - Angular;
       - Svelte;
       - Web Components;
-      - qualquer outro framework ou runtime de UI.
+      - Zag.js;
+      - qualquer outro framework, toolkit comportamental ou runtime de UI.
     - Agnosticismo NÃO significa proibir integrações ou recursos especializados
       dependentes de frameworks.
     - A biblioteca PODE disponibilizar funcionalidades opcionais destinadas a
@@ -77,9 +80,10 @@
         essencial ao contrato comum.
     - O requisito de independência DEVE ser interpretado como:
       - **núcleo sempre funcional sem framework**;
-      - **adaptações opcionais podem depender de framework**;
-      - **recursos exclusivos do framework somente ficam disponíveis quando a
-        integração correspondente estiver presente, compatível e ativa**.
+      - **adaptações opcionais podem depender de framework ou toolkit**;
+      - **recursos exclusivos de React, Preact, Zag.js ou de uma combinação
+        específica somente ficam disponíveis quando todas as integrações
+        correspondentes estiverem presentes, compatíveis e ativas**.
     - A documentação, os tipos, os manifestos e os diagnósticos DEVEM distinguir
       claramente:
       - recurso nativo do núcleo;
@@ -87,9 +91,16 @@
       - adaptação opcional;
       - recurso exclusivo de React;
       - recurso exclusivo de Preact;
-      - recurso indisponível por ausência ou incompatibilidade do framework.
-    - Nenhum recurso dependente de framework DEVE ser apresentado como
-      capacidade universal da engine.
+      - recurso exclusivo de Zag.js;
+      - recurso dependente de combinação, como React + Zag.js ou Preact + Zag.js;
+      - recurso indisponível por ausência ou incompatibilidade do framework,
+        toolkit, adaptador ou combinação requerida.
+    - Nenhum recurso dependente de framework, toolkit ou combinação DEVE ser
+      apresentado como capacidade universal da engine.
+    - A existência de variantes especializadas de release NÃO reduz o
+      agnosticismo: o perfil sem dependências opcionais DEVE permanecer completo
+      quanto ao núcleo, enquanto cada perfil especializado acrescenta somente as
+      capacidades declaradas para sua combinação.
 
   - **Arquitetura obrigatória em camadas**
     - Separar a implementação, no mínimo, nas seguintes camadas conceituais:
@@ -97,13 +108,17 @@
       2. **contrato de integração com UI**;
       3. **implementação concreta de `PageZone` e `ContentWrapper`**;
       4. **adaptadores opcionais de framework**;
-      5. **recursos especializados dependentes de framework**.
+      5. **integração comportamental opcional com Zag.js**;
+      6. **recursos especializados dependentes de framework, toolkit ou
+         combinação**.
     - A dependência entre camadas DEVE seguir, conceitualmente:
 
       ```text
       Implementações visuais e componentes
                     ↓
       Adaptador opcional React/Preact/outro
+                    ↕
+      Integração comportamental opcional Zag.js
                     ↓
       Contrato de integração com UI
                     ↓
@@ -111,9 +126,9 @@
       ```
 
     - O núcleo NÃO DEVE importar, referenciar nem presumir APIs de React,
-      Preact ou outro framework.
-    - Adaptadores PODEM depender do núcleo; o núcleo NÃO PODE depender dos
-      adaptadores.
+      Preact, Zag.js ou outro framework, toolkit ou runtime opcional.
+    - Adaptadores e integrações Zag.js PODEM depender do núcleo; o núcleo NÃO
+      PODE depender deles.
     - Recursos visuais PODEM consumir o núcleo direta ou indiretamente, mas NÃO
       DEVEM redefinir:
       - autoridade;
@@ -128,9 +143,10 @@
       DEVEM permanecer conceitualmente distintas.
     - A árvore lógica do núcleo DEVE ser a fonte normativa de autoridade,
       subordinação, estado agregado e controle operacional.
-    - React, Preact, DOM, portals, slots, wrappers, fragments, renderização
-      condicional ou componentes intermediários NÃO DEVEM determinar
-      implicitamente a hierarquia normativa.
+    - React, Preact, Zag.js, DOM, portals, slots, wrappers, fragments,
+      renderização condicional, máquinas de interação ou componentes
+      intermediários NÃO DEVEM determinar implicitamente a hierarquia
+      normativa.
     - A relação visual PODE auxiliar a descoberta inicial, mas o vínculo
       hierárquico somente se torna válido pelo contrato explícito do núcleo.
 
@@ -142,6 +158,7 @@
       - sem DOM;
       - sem React;
       - sem Preact;
+      - sem Zag.js;
       - em navegador;
       - em Worker;
       - em processo;
@@ -167,14 +184,16 @@
       - renderizar componentes;
       - manipular diretamente JSX;
       - depender de hooks de UI;
-      - acessar internals de frameworks;
+      - acessar internals de frameworks ou de Zag.js;
+      - delegar a máquinas de UI a autoridade ou o ciclo operacional;
       - confundir montagem visual com registro hierárquico;
       - assumir que desmontagem visual equivale automaticamente a encerramento
         operacional concluído.
     - Toda funcionalidade que puder ser implementada no núcleo de forma
       independente DEVE permanecer nele, evitando duplicação em adaptadores.
-    - Os adaptadores DEVEM sincronizar o framework com o núcleo; NÃO DEVEM
-      implementar árvores de autoridade paralelas.
+    - Os adaptadores DEVEM sincronizar framework e, quando aplicável, Zag.js
+      com o núcleo; NÃO DEVEM implementar árvores de autoridade, máquinas de
+      estado operacional ou fontes de verdade paralelas.
 
   - **Contrato de integração com UI**
     - Definir interface genérica entre o núcleo e qualquer sistema visual.
@@ -263,12 +282,112 @@
     - A integração NÃO DEVE presumir que proximidade visual, ancestralidade JSX
       ou Context disponível constituem autoridade válida.
 
+  - **Integração comportamental opcional com Zag.js**
+    - Zag.js PODE ser disponibilizado como integração opcional, isolada e
+      combinável com React ou Preact, quando reduzir a implementação de
+      comportamentos interativos, acessibilidade e sincronização visual sem
+      comprometer o núcleo autônomo.
+    - Zag.js NÃO DEVE ser imposto ao projeto, ao desenvolvedor ou ao consumidor.
+      Sua adoção DEVE resultar de decisão técnica fundamentada no estado real,
+      considerando:
+      - componentes e máquinas já disponíveis;
+      - acessibilidade;
+      - ergonomia;
+      - compatibilidade com React ou Preact;
+      - custo de bundle;
+      - maturidade e manutenção;
+      - necessidade efetiva;
+      - custo de adaptação e atualização.
+    - A integração PODE utilizar máquinas existentes ou customizadas para
+      responsabilidades de UI, incluindo, quando aplicável:
+      - seleção e alternância visual;
+      - tabs;
+      - foco;
+      - navegação por teclado;
+      - presença, entrada e saída visual;
+      - menus;
+      - dialogs;
+      - popovers;
+      - tree view;
+      - splitters;
+      - notificações;
+      - estados locais de interação;
+      - atributos e relações ARIA.
+    - Zag.js NÃO DEVE definir nem substituir:
+      - árvore lógica de autoridade;
+      - identidade normativa;
+      - vínculo pai-filho;
+      - agregação;
+      - snapshot;
+      - estado operacional;
+      - ciclo de vida do nó;
+      - comandos hierárquicos;
+      - encerramento;
+      - `kill`;
+      - segurança;
+      - fail-safe;
+      - manifestos comuns.
+    - Máquinas Zag.js DEVEM representar somente estados comportamentais ou
+      visuais proporcionais à interação, como:
+
+      ```text
+      hidden → entering → visible → leaving → hidden
+      ```
+
+      Elas NÃO DEVEM tornar-se representação exclusiva de transições
+      operacionais como:
+
+      ```text
+      registrando → ativo → degradado → encerrando → kill-pending
+      ```
+
+    - Quando um comportamento visual corresponder a operação do núcleo:
+      - a máquina Zag.js DEVE emitir evento ou intenção normalizada;
+      - o adaptador DEVE convertê-la em comando comum;
+      - o núcleo DEVE validar autoridade, capacidade e estado;
+      - o resultado normativo DEVE retornar ao adaptador;
+      - a máquina visual DEVE refletir o resultado, sem presumir sucesso.
+    - Estado de seleção, foco, presença ou desmontagem visual NÃO DEVE ser
+      interpretado automaticamente como ativação, suspensão, encerramento ou
+      `kill` operacional.
+    - A integração Zag.js DEVE permanecer separada por módulos, entry points,
+      tipos, manifestos e testes próprios, podendo ser removida sem alterar o
+      núcleo ou os adaptadores React/Preact sem Zag.
+    - React e Preact DEVEM usar, quando aplicável, o adaptador Zag.js apropriado
+      ao respectivo framework; um perfil NÃO DEVE importar o adaptador destinado
+      ao outro.
+    - Máquinas, componentes ou pacotes Zag.js DEVEM ser importados
+      seletivamente. É PROIBIDO incorporar conjuntos não utilizados apenas por
+      conveniência.
+    - A ausência de Zag.js NÃO DEVE:
+      - impedir o uso do núcleo;
+      - impedir os adaptadores React ou Preact sem Zag;
+      - desativar recursos comuns que possuam implementação autônoma;
+      - causar importação, instalação ou carregamento automático;
+      - produzir erro fora de recurso que o exija.
+    - Quando houver implementação comum sem Zag.js e implementação especializada
+      com Zag.js, ambas DEVEM:
+      - obedecer ao mesmo contrato externo;
+      - produzir semântica operacional equivalente;
+      - distinguir diferenças estritamente visuais ou ergonômicas;
+      - passar pela mesma suíte contratual comum;
+      - evitar duplicação da lógica central.
+    - Recursos Zag.js sem equivalente autônomo DEVEM ser declarados como
+      capacidade opcional específica da combinação ativa, com indisponibilidade
+      explícita e consultável nos demais perfis.
+    - A integração DEVE permitir futura substituição de Zag.js por outro toolkit
+      comportamental mediante o contrato comum, sem alterar o núcleo ou a
+      semântica pública.
+
   - **Classificação das funcionalidades**
     - Cada funcionalidade adicionada por este TODO DEVE ser classificada como:
       - **core**: autônoma e sempre disponível;
       - **adapter**: integração genérica com UI;
       - **react**: dependente de React;
       - **preact**: dependente de Preact;
+      - **zag**: dependente de Zag.js;
+      - **react-zag**: dependente da combinação React + Zag.js;
+      - **preact-zag**: dependente da combinação Preact + Zag.js;
       - **optional-extension**: recurso especializado não essencial;
       - **transport-specific**: dependente de DOM, Worker, processo ou outro
         ambiente.
@@ -281,21 +400,24 @@
       - nos diagnósticos de disponibilidade.
     - Recursos `core` NÃO PODEM depender transitivamente de recursos
       classificados como opcionais.
-    - Recursos dependentes de framework NÃO DEVEM possuir fallback que simule
-      silenciosamente comportamento incompatível.
+    - Recursos dependentes de framework, Zag.js ou combinação NÃO DEVEM
+      possuir fallback que simule silenciosamente comportamento incompatível.
     - Quando houver alternativa funcional no núcleo, ela DEVE ser utilizada.
     - Quando não houver alternativa, a indisponibilidade DEVE ser explícita e
       consultável.
 
-  - **Descoberta de frameworks em runtime**
-    - Antes de utilizar qualquer recurso dependente de React ou Preact, a engine
-      DEVE verificar se o framework correspondente:
+  - **Descoberta de frameworks, Zag.js e adaptadores em runtime**
+    - Antes de utilizar qualquer recurso dependente de React, Preact, Zag.js ou
+      combinação entre eles, a engine DEVE verificar se cada dependência
+      correspondente:
       - existe no contexto aplicável;
       - está carregado;
       - possui versão compatível;
       - expõe as capacidades necessárias;
       - está autorizado para aquela integração;
-      - possui adaptador disponível e válido.
+      - possui adaptador disponível e válido;
+      - integra-se de forma compatível às demais dependências exigidas pela
+        combinação.
     - A verificação NÃO DEVE depender exclusivamente:
       - da existência de um nome em `globalThis`;
       - de heurística baseada no DOM;
@@ -308,7 +430,7 @@
       3. integração por módulo conhecido no build;
       4. descoberta segura por API pública;
       5. heurística somente quando inevitável, documentada e não conclusiva.
-    - A ausência de framework NÃO DEVE:
+    - A ausência de framework, Zag.js ou adaptador NÃO DEVE:
       - causar exceção na inicialização do núcleo;
       - impedir o uso da biblioteca;
       - carregar dependência automaticamente;
@@ -320,16 +442,23 @@
       - indisponíveis;
       - ou em estado `unresolved`, quando o framework ainda puder ser carregado.
     - A engine NÃO DEVE confundir:
-      - framework ausente;
-      - framework ainda não carregado;
+      - framework ou Zag.js ausente;
+      - dependência ainda não carregada;
       - versão incompatível;
       - adaptador ausente;
       - adaptador inválido;
+      - combinação incompleta;
+      - combinação incompatível;
       - recurso não suportado;
       - recurso não autorizado.
+    - Perfis dedicados de release PODEM declarar previamente a combinação para a
+      qual foram construídos, evitando descoberta estrutural desnecessária;
+      ainda assim, DEVEM validar uma única vez a disponibilidade e a
+      compatibilidade das peer dependencies externas antes de ativar recursos.
 
   - **Cache de descoberta e capacidades**
-    - A descoberta de React, Preact e adaptadores NÃO DEVE ser repetida para
+    - A descoberta de React, Preact, Zag.js, suas combinações e adaptadores
+      NÃO DEVE ser repetida para
       cada:
       - `PageZone`;
       - `ContentWrapper`;
@@ -347,8 +476,9 @@
       - módulo;
       - contexto global equivalente.
     - O registro DEVE armazenar, conforme aplicável:
-      - framework identificado;
-      - versão;
+      - framework ou toolkit identificado;
+      - combinação ativa;
+      - versões;
       - estado de carregamento;
       - compatibilidade;
       - adaptador;
@@ -358,8 +488,8 @@
       - revisão;
       - origem da descoberta;
       - momento ou ciclo da validação.
-    - Cada framework ou adaptador DEVE ser descoberto e validado apenas uma vez
-      por contexto e versão, salvo:
+    - Cada framework, toolkit, combinação ou adaptador DEVE ser descoberto e
+      validado apenas uma vez por contexto e conjunto de versões, salvo:
       - invalidação;
       - substituição;
       - hot reload;
@@ -369,6 +499,7 @@
       - solicitação explícita de nova resolução.
     - O cache NÃO DEVE:
       - misturar React e Preact;
+      - ativar Zag.js sem o adaptador compatível com o framework selecionado;
       - reutilizar adaptador incompatível;
       - cruzar realms;
       - persistir estado inválido indefinidamente;
@@ -381,7 +512,7 @@
     - Mudanças de disponibilidade DEVEM atualizar o registro e emitir evento
       controlado quando afetarem recursos já vinculados.
 
-  - **Carregamento tardio de frameworks**
+  - **Carregamento tardio de frameworks e Zag.js**
     - Em navegador ou ambiente com carregamento dinâmico, a engine NÃO DEVE
       concluir ausência definitiva antes do ponto em que:
       - o framework seja realmente necessário;
@@ -407,7 +538,8 @@
       - possuir cancelamento ou descarte;
       - atualizar o cache compartilhado;
       - distinguir carregamento pendente de ausência.
-    - A biblioteca NÃO DEVE carregar React ou Preact automaticamente.
+    - A biblioteca NÃO DEVE carregar React, Preact ou Zag.js
+      automaticamente.
     - A biblioteca NÃO DEVE incorporar loader específico de framework quando
       um contrato genérico for suficiente.
     - Se um recurso dependente for solicitado antes da conclusão da resolução,
@@ -418,31 +550,189 @@
       - rejeitar a operação.
     - A política NÃO DEVE ser inferida de modo inconsistente entre chamadas.
 
-  - **Distribuição e bundle**
-    - O núcleo DEVE ser distribuível sem React, Preact ou respectivos tipos de
-      runtime obrigatórios.
-    - Adaptadores DEVEM permanecer:
+  - **Distribuição, bundles e perfis otimizados**
+    - O núcleo DEVE ser distribuível sem React, Preact, Zag.js ou respectivos
+      tipos e runtimes obrigatórios.
+    - Adaptadores e integrações opcionais DEVEM permanecer:
       - separados;
       - tree-shakeable;
-      - importáveis opcionalmente;
+      - importáveis explicitamente;
       - excluíveis do bundle;
       - sem efeitos colaterais de registro quando não utilizados, salvo
-        mecanismo explicitamente normatizado.
-    - React ou Preact NÃO DEVEM ser incorporados ao bundle da biblioteca.
-    - Quando necessário, DEVEM ser tratados como peer dependency opcional,
-      contrato externo equivalente ou mecanismo já utilizado pelo repositório,
-      sem impor instalação ao consumidor do núcleo.
-    - A escolha do modelo de distribuição DEVE considerar o estado real do
-      projeto e evitar invenção de empacotamento incompatível.
-    - O build DEVE permitir verificar que:
-      - núcleo não importa framework;
-      - adaptador React não importa Preact;
-      - adaptador Preact não importa React;
-      - recursos opcionais não vazam para entry points comuns;
-      - ausência de adaptadores não quebra o núcleo.
-    - O tamanho do bundle DEVE permanecer proporcional.
-    - Nenhuma conveniência de framework DEVE justificar duplicação substancial
-      da lógica central.
+        mecanismo expressamente normatizado.
+    - React, Preact e Zag.js NÃO DEVEM ser incorporados ao bundle da biblioteca,
+      salvo se o modelo de distribuição vigente exigir explicitamente um bundle
+      autocontido para perfil separado; mesmo nesse caso, isso NÃO PODE afetar
+      os demais perfis.
+    - Quando externos, DEVEM ser tratados como peer dependencies opcionais,
+      contratos equivalentes ou mecanismo já adotado pelo repositório, sem impor
+      instalação ao consumidor do núcleo.
+    - A escolha do modelo físico de distribuição DEVE considerar o estado real
+      do projeto e evitar empacotamento incompatível ou duplicação
+      desproporcional.
+    - O build DEVE verificar que:
+      - o núcleo não importa React, Preact nem Zag.js;
+      - o adaptador React não importa Preact;
+      - o adaptador Preact não importa React;
+      - a variante sem Zag.js não importa Zag.js;
+      - a variante React + Zag.js não importa adaptadores Preact;
+      - a variante Preact + Zag.js não importa adaptadores React;
+      - recursos opcionais não vazam para entry points incompatíveis;
+      - ausência de adaptadores não quebra o núcleo;
+      - nenhuma conveniência de framework duplica substancialmente a lógica
+        central.
+    - O tamanho de cada bundle DEVE ser proporcional apenas às capacidades do
+      perfil correspondente.
+
+  - **Matriz geral de releases por combinação**
+    - Estabelecer como regra de negócio geral do repositório, aplicável a este e
+      a quaisquer recursos presentes ou futuros, que toda release publicada
+      DEVE fornecer artefatos distintos e previamente otimizados para cada
+      combinação de frameworks, toolkits, adaptadores e integrações opcionais
+      efetivamente suportada.
+    - Essa regra NÃO se limita a `PageZone`, React, Preact ou Zag.js. Sempre que
+      o repositório incorporar integração opcional combinável, a matriz de
+      release DEVE ser recalculada e atualizada.
+    - Para um conjunto de dependências opcionais independentes, a release DEVE
+      incluir:
+      - perfil sem nenhuma delas;
+      - cada perfil unitário suportado;
+      - cada combinação mutuamente compatível e oficialmente suportada;
+      - combinações progressivas de presença e ausência necessárias para que o
+        consumidor não receba código destinado a dependências que não utiliza.
+    - Combinações tecnicamente inválidas, redundantes, inseguras ou não
+      suportadas NÃO DEVEM ser publicadas como funcionais; DEVEM constar
+      explicitamente no manifesto da matriz como excluídas, com justificativa
+      verificável.
+    - Para o escopo atualmente identificado, a matriz mínima DEVE publicar:
+      1. **core/standalone**: sem framework e sem Zag.js;
+      2. **preact**: Preact sem Zag.js;
+      3. **preact-zag**: Preact com Zag.js;
+      4. **react**: React sem Zag.js;
+      5. **react-zag**: React com Zag.js.
+    - Um perfil Zag.js sem React ou Preact somente DEVE ser incluído se houver
+      suporte autônomo real, validado e oficialmente mantido; ele NÃO DEVE ser
+      inferido apenas porque partes de Zag.js sejam agnósticas.
+    - Cada perfil DEVE ser construído diretamente para sua combinação, e NÃO
+      resultar de bundle universal que detecta dependências em runtime enquanto
+      conserva código morto de todas as alternativas.
+    - Uma variante universal ou autodetectável PODE ser publicada por
+      conveniência, desde que:
+      - seja adicional;
+      - esteja claramente identificada;
+      - não substitua os perfis otimizados;
+      - declare seu custo;
+      - preserve o núcleo standalone;
+      - carregue integrações sob demanda quando tecnicamente possível.
+    - Cada perfil DEVE conter somente:
+      - núcleo comum necessário;
+      - contrato e adaptadores da combinação;
+      - recursos especializados habilitados;
+      - tipos e metadados correspondentes;
+      - detecção mínima ainda necessária;
+      - nenhum código exclusivo das demais combinações.
+    - A especialização do release NÃO DEVE criar forks semânticos. Todos os
+      perfis DEVEM compartilhar:
+      - o mesmo núcleo;
+      - os mesmos contratos;
+      - a mesma versão normativa;
+      - a mesma semântica operacional;
+      - correções comuns;
+      - compatibilidade equivalente para capacidades compartilhadas.
+    - Diferenças entre perfis DEVEM limitar-se às capacidades opcionais
+      declaradas e às otimizações necessárias à combinação.
+    - A matriz DEVE ser derivada de manifesto de suporte legível por máquina que
+      declare, para cada perfil:
+      - identificador estável;
+      - dependências presentes e ausentes;
+      - peer dependencies;
+      - versões compatíveis;
+      - adaptadores;
+      - capacidades;
+      - entry points;
+      - arquivos;
+      - tipos;
+      - formatos de módulo;
+      - ambiente;
+      - fallback;
+      - limitações;
+      - estado de suporte.
+    - Nomes de perfis, pacotes, subpaths e arquivos DEVEM ser previsíveis,
+      estáveis, documentados e inequívocos.
+    - `package.json`, exports maps ou mecanismo equivalente DEVEM permitir
+      seleção explícita do perfil sem importar previamente o bundle universal.
+    - A importação do perfil escolhido NÃO DEVE provocar:
+      - detecção das alternativas excluídas;
+      - importação transitiva de adaptadores incompatíveis;
+      - resolução de peer dependency não pertencente ao perfil;
+      - execução de branches mortos destinados a outra combinação.
+    - A release DEVE fornecer, quando aplicável a cada perfil:
+      - ESM;
+      - demais formatos já oficialmente suportados;
+      - declarações de tipos;
+      - sourcemaps;
+      - manifesto de capacidades;
+      - metadados de integridade;
+      - documentação de importação;
+      - exemplo mínimo;
+      - informação de tamanho.
+    - Tipos especializados DEVEM acompanhar somente os perfis a que pertencem;
+      tipos comuns DEVEM permanecer independentes.
+    - O processo de build DEVE gerar a matriz de modo determinístico e evitar
+      manutenção manual divergente entre variantes.
+    - A CI DEVE validar:
+      - existência de todos os perfis obrigatórios;
+      - ausência de combinações não declaradas;
+      - isolamento de dependências;
+      - imports proibidos;
+      - tree shaking;
+      - tamanho;
+      - equivalência do núcleo;
+      - tipos;
+      - exports;
+      - instalação isolada;
+      - execução com somente as peer dependencies declaradas;
+      - falha clara quando dependência requerida do perfil estiver ausente.
+    - Cada perfil DEVE ser testado em ambiente limpo, sem dependências opcionais
+      não declaradas instaladas, para impedir sucesso acidental por hoisting,
+      cache ou dependência transitiva.
+    - O perfil standalone DEVE ser validado em ambiente sem React, Preact e
+      Zag.js.
+    - Os perfis sem Zag.js DEVEM ser validados sem Zag.js instalado.
+    - Os perfis React DEVEM ser validados sem Preact; os perfis Preact, sem
+      React.
+    - Os perfis combinados DEVEM validar a compatibilidade conjunta, não apenas
+      a presença individual das dependências.
+    - Alterações que adicionem, removam ou mudem uma integração opcional DEVEM
+      atualizar, no mesmo ciclo:
+      - manifesto da matriz;
+      - build;
+      - exports;
+      - release;
+      - tipos;
+      - documentação;
+      - testes;
+      - exemplos;
+      - critérios de compatibilidade.
+    - A documentação principal DEVE apresentar tabela de decisão que permita ao
+      consumidor escolher diretamente o perfil correto conforme as dependências
+      já existentes em seu projeto.
+    - É PROIBIDO:
+      - publicar apenas um bundle máximo contendo todas as integrações;
+      - exigir que o consumidor dependa exclusivamente de tree shaking para
+        remover alternativas;
+      - declarar perfil otimizado que ainda carregue código de combinações
+        ausentes;
+      - fazer o perfil standalone depender transitivamente de qualquer
+        integração opcional;
+      - omitir perfil de ausência total quando o núcleo puder funcionar sem
+        framework;
+      - criar versões normativas distintas para a mesma release apenas por
+        diferença de perfil.
+    - A regra geral da matriz DEVE ser incorporada ao RCF principal, em seção
+      aplicável a build, distribuição e releases, para alcançar qualquer futura
+      combinação utilizada pelo repositório, sem necessidade de repeti-la em
+      cada feature.
 
   - **Modelo conceitual**
     - `PageZone` representa conceitualmente um contêiner de aplicação.
@@ -477,7 +767,8 @@
       seus nomes, estrutura física, framework e tecnologia de implementação
       NÃO DEVEM ser confundidos com o contrato conceitual.
     - Outro componente, objeto, Web Component, componente React, componente
-      Preact, componente de outro framework, estrutura virtual ou implementação
+      Preact, componente assistido por Zag.js, componente de outro framework,
+      estrutura virtual ou implementação
       equivalente PODE substituir `PageZone` e/ou `ContentWrapper`, desde que
       cumpra integralmente as normas de:
       - isolamento;
@@ -517,13 +808,16 @@
          mensagens, estado, monitoramento, controle, ciclo de vida e
          interoperabilidade;
       3. **integração de framework**: sincronização opcional entre o contrato
-         comum e React, Preact ou outro runtime visual.
+         comum e React, Preact ou outro runtime visual;
+      4. **integração comportamental**: uso opcional de Zag.js ou toolkit
+         equivalente para comportamentos de UI.
     - Regras visuais específicas deste repositório NÃO DEVEM ser impostas a
       implementações externas que adotem o contrato arquitetural.
     - O contrato arquitetural NÃO DEVE depender de aparência, layout ou
       estrutura visual específica.
-    - Regras específicas de React ou Preact NÃO DEVEM integrar a norma comum,
-      salvo referências delimitadoras aos adaptadores.
+    - Regras específicas de React, Preact ou Zag.js NÃO DEVEM integrar a
+      norma comum, salvo referências delimitadoras aos adaptadores e às
+      capacidades opcionais.
     - Conceitos e microconceitos comuns PODEM ser compartilhados entre normas,
       mas suas responsabilidades DEVEM permanecer separadas.
     - Quando necessário, regras visuais ou de framework DEVEM referenciar o
@@ -554,10 +848,12 @@
       - conter exemplos conformes e não conformes;
       - permitir reutilização por projetos com estrutura visual distinta;
       - ser diretamente mencionada e vinculada pelo RCF principal;
-      - ser mencionada e vinculada pelo `README.md` em seção apropriada.
-    - Integrações React e Preact DEVEM ser documentadas em seções ou documentos
-      especializados subordinados à subnorma comum, sem tornar seus requisitos
-      universais.
+      - ser mencionada e vinculada pelo `README.md` em seção apropriada;
+      - referenciar a matriz de perfis sem transformar integrações opcionais em
+        requisitos universais.
+    - Integrações React, Preact e Zag.js, isoladas ou combinadas, DEVEM ser
+      documentadas em seções ou documentos especializados subordinados à
+      subnorma comum, sem tornar seus requisitos universais.
     - Alterações no RCF, em `PageZone`, `ContentWrapper`, no núcleo, nos
       adaptadores ou nos contratos de integração DEVEM incluir análise de
       impacto e atualização sincronizada:
@@ -577,6 +873,12 @@
       - **Núcleo**: engine hierárquica independente de UI;
       - **Adaptador de Framework**: integração opcional entre núcleo e
         framework;
+      - **Integração Comportamental**: camada opcional, como Zag.js, responsável
+        por comportamentos de UI sem autoridade normativa;
+      - **Perfil de Release**: artefato otimizado para combinação declarada de
+        dependências opcionais;
+      - **Matriz de Release**: conjunto de todos os perfis suportados, inclusive
+        a ausência total de integrações opcionais;
       - **Capacidade Dependente**: recurso disponível apenas quando determinada
         integração estiver ativa;
       - **Raiz**: nó sem superior;
@@ -597,7 +899,7 @@
       - **Capacidade**: operação declarada e suportada por um nó;
       - **Adaptador**: camada de conformidade para implementação equivalente;
       - **Registro de Ambiente**: cache compartilhado de frameworks,
-        adaptadores e capacidades.
+        toolkits, combinações, adaptadores e capacidades.
     - Microconceitos DEVEM substituir repetições sem ocultar regras, exceções ou
       responsabilidades.
 
@@ -625,6 +927,7 @@
       - referências arbitrárias;
       - acesso ao DOM;
       - Context de framework;
+      - máquina ou estado Zag.js;
       - posição JSX;
       - posse de identificadores;
       - ordem de carregamento.
@@ -669,8 +972,9 @@
     - Atualizações DEVEM ser propagadas somente quando necessárias, evitando
       reprocessamento integral para alterações localizadas quando puder ser
       mantida consistência incremental.
-    - Adaptadores React ou Preact DEVEM consumir essa comunicação; NÃO DEVEM
-      substituí-la por comunicação exclusiva de Context ou props.
+    - Adaptadores React, Preact ou Zag.js DEVEM consumir essa comunicação;
+      NÃO DEVEM substituí-la por comunicação exclusiva de Context, props ou
+      máquinas locais.
 
   - **Perfis de participação, nós folha e alternância de aplicações**
     - Nem toda aplicação inserida em uma Área de Conteúdo atua ou atuará como
@@ -854,9 +1158,9 @@
       informações que estes já têm obrigação de fornecer.
     - Informações redundantes DEVEM ser minimizadas sem comprometer autonomia,
       diagnóstico ou recuperação.
-    - A renderização reativa de React ou Preact DEVE derivar desse estado
-      agregado ou de projeções controladas, sem manter cópia divergente como
-      fonte de verdade.
+    - A renderização reativa de React ou Preact e as máquinas Zag.js DEVEM
+      derivar desse estado agregado ou de projeções controladas, sem manter
+      cópia divergente como fonte de verdade.
 
   - **Identidade e endereçamento**
     - Cada nó DEVE possuir identificador estável e inequívoco dentro do contexto
@@ -874,6 +1178,7 @@
     - Identificadores NÃO DEVEM depender exclusivamente:
       - da posição no DOM;
       - de `key` de React ou Preact;
+      - de identificador interno de máquina Zag.js;
       - do índice visual;
       - da ordem de carregamento;
       - de texto exibido;
@@ -951,12 +1256,14 @@
       - kill;
       - compatibilidade;
       - extensões.
-    - Capacidades dependentes de React ou Preact DEVEM declarar explicitamente:
-      - framework;
-      - faixa de compatibilidade;
+    - Capacidades dependentes de React, Preact, Zag.js ou combinação DEVEM
+      declarar explicitamente:
+      - framework e/ou toolkit;
+      - faixa de compatibilidade de cada dependência;
       - APIs necessárias;
-      - adaptador requerido;
-      - comportamento sem o framework;
+      - adaptadores requeridos;
+      - perfil de release correspondente;
+      - comportamento sem cada dependência;
       - fallback, quando existir.
     - O manifesto DEVE conter somente informações necessárias ao acoplamento,
       sem duplicar definições já fornecidas por tipos ou schemas reutilizáveis.
@@ -970,8 +1277,8 @@
     - A ausência de capacidade DEVE ser distinguida de:
       - capacidade desconhecida;
       - capacidade temporariamente indisponível;
-      - framework ainda não resolvido;
-      - framework incompatível;
+      - framework ou toolkit ainda não resolvido;
+      - framework, toolkit ou combinação incompatível;
       - adaptador ausente;
       - operação não autorizada.
     - Manifestos inválidos ou incompatíveis NÃO DEVEM ativar o vínculo.
@@ -991,13 +1298,15 @@
       - códigos;
       - nomenclatura.
     - O contrato comum DEVE ser definido em tipos independentes de framework.
-    - Tipos React ou Preact DEVEM permanecer em módulos especializados.
+    - Tipos React, Preact e Zag.js DEVEM permanecer em módulos especializados
+      e nos perfis correspondentes.
     - Tipos do núcleo NÃO DEVEM importar:
       - `ReactNode`;
       - `Component`;
       - `VNode`;
       - hooks;
       - Context;
+      - tipos de máquina ou adaptadores Zag.js;
       - outros tipos específicos de UI.
     - A padronização DEVE maximizar:
       - interoperabilidade;
@@ -1097,8 +1406,8 @@
       - representação visual;
       - framework.
     - Hooks comuns DEVEM existir independentemente de framework.
-    - Adaptadores React ou Preact PODEM expor hooks ergonômicos adicionais, mas
-      eles DEVEM:
+    - Adaptadores React, Preact ou Zag.js PODEM expor hooks ergonômicos
+      adicionais, mas eles DEVEM:
       - mapear para operações comuns;
       - preservar semântica;
       - não criar autoridade paralela;
@@ -1149,7 +1458,8 @@
       - snapshot;
       - alteração incremental;
       - evento visual;
-      - evento de adaptador.
+      - evento de adaptador;
+      - evento comportamental de Zag.js.
     - Eventos DEVEM ser imutáveis após emissão ou semanticamente equivalentes.
     - Comandos potencialmente destrutivos DEVEM possuir confirmação,
       correlação ou mecanismo equivalente.
@@ -1166,8 +1476,8 @@
       - reenvio indefinido;
       - perda silenciosa de eventos críticos.
     - Eventos agregados DEVEM preservar referência às origens afetadas.
-    - Eventos de React ou Preact DEVEM ser normalizados antes de ingressar no
-      protocolo comum quando possuírem representação específica.
+    - Eventos de React, Preact ou Zag.js DEVEM ser normalizados antes de
+      ingressar no protocolo comum quando possuírem representação específica.
 
   - **Severidade e diagnóstico**
     - Distinguir rigorosamente estado operacional de severidade diagnóstica.
@@ -1181,14 +1491,16 @@
         ser preservada.
     - `kill` NÃO DEVE ser tratado como severidade; é comando operacional
       coercitivo.
-    - Diagnósticos de framework DEVEM distinguir:
-      - framework ausente;
+    - Diagnósticos de integração DEVEM distinguir:
+      - framework ou Zag.js ausente;
       - carregamento pendente;
       - versão incompatível;
       - adaptador ausente;
       - hook indisponível;
       - erro de renderização;
       - falha de sincronização;
+      - máquina Zag.js inválida ou indisponível;
+      - combinação incompleta;
       - capacidade desativada.
     - Cada diagnóstico DEVE informar, conforme aplicável:
       - código;
@@ -1228,7 +1540,8 @@
       - inconsistências;
       - representações visuais associadas;
       - adaptadores ativos;
-      - recursos de framework disponíveis.
+      - recursos de framework e Zag.js disponíveis;
+      - perfil de release ativo.
     - Consultas DEVEM poder ser:
       - pontuais;
       - agregadas;
@@ -1238,7 +1551,9 @@
       - por nível;
       - por capacidade;
       - por adaptador;
-      - por framework.
+      - por framework;
+      - por toolkit;
+      - por perfil de release.
     - A observação NÃO DEVE conceder mutação.
     - Snapshots DEVEM possuir revisão suficiente para detectar desatualização.
     - O monitoramento DEVE distinguir:
@@ -1248,7 +1563,8 @@
       - nó não responsivo;
       - informação desatualizada;
       - UI desvinculada;
-      - framework indisponível.
+      - framework ou Zag.js indisponível;
+      - combinação incompleta.
     - A ausência de resposta NÃO DEVE ser automaticamente interpretada como
       encerramento concluído.
 
@@ -1312,6 +1628,7 @@
       - subscriptions;
       - contexts;
       - listeners;
+      - máquinas e serviços Zag.js;
       - referências visuais;
       - hooks;
         sem determinar sozinho o estado operacional final.
@@ -1333,8 +1650,9 @@
       - remoção lógica;
       - desmontagem visual;
       - confirmação.
-    - Desmontar componente React ou Preact NÃO DEVE ser reportado
-      automaticamente como terminação física da aplicação.
+    - Desmontar componente React ou Preact ou encerrar presença/máquina Zag.js
+      NÃO DEVE ser reportado automaticamente como terminação física da
+      aplicação.
     - Em Worker ou processo isolado, a implementação PODE usar mecanismo nativo
       de terminação.
     - Em componentes sem isolamento físico, `kill` DEVE aplicar a forma mais
@@ -1378,10 +1696,10 @@
       - erro não funcional;
       - falha parcial;
       - desconexão;
-      - framework ausente;
-      - framework carregado tardiamente;
-      - versão incompatível;
-      - adaptador defeituoso;
+      - framework ou Zag.js ausente;
+      - dependência carregada tardiamente;
+      - versão ou combinação incompatível;
+      - adaptador ou máquina defeituosa;
       - erro de renderização;
       - desmontagem inesperada.
     - Uma falha localizada NÃO DEVE corromper:
@@ -1391,8 +1709,10 @@
       - núcleo;
       - estado global;
       - outras subárvores;
-      - outros adaptadores.
-    - Falha de adaptador NÃO DEVE inutilizar a operação headless do núcleo,
+      - outros adaptadores;
+      - outros perfis ou integrações opcionais.
+    - Falha de adaptador ou de Zag.js NÃO DEVE inutilizar a operação headless
+      do núcleo,
       quando semanticamente possível.
     - O pai DEVE poder:
       - marcar filho como degradado;
@@ -1411,9 +1731,10 @@
       - divergência de revisão;
       - reconexão;
       - remontagem visual;
-      - substituição de adaptador.
+      - substituição de adaptador;
+      - reinicialização de máquina Zag.js.
     - A reconstrução NÃO DEVE exigir acesso irrestrito aos internals dos filhos
-      ou frameworks.
+      ou frameworks/toolkits.
     - Estado desconhecido DEVE permanecer explicitamente desconhecido; NÃO DEVE
       ser fabricado como saudável, disponível ou encerrado.
 
@@ -1421,16 +1742,16 @@
     - A comunicação DEVE ocorrer por interfaces controladas.
     - Filhos NÃO DEVEM receber acesso direto ao estado privado do pai.
     - Pais NÃO DEVEM receber acesso irrestrito ao estado privado dos filhos.
-    - Adaptadores NÃO DEVEM expor internals de React, Preact ou do componente
-      como substituição do contrato.
+    - Adaptadores NÃO DEVEM expor internals de React, Preact, Zag.js ou do
+      componente como substituição do contrato.
     - O contrato DEVE expor apenas:
       - estado necessário;
       - capacidades aprovadas;
       - operações autorizadas;
       - diagnósticos permitidos.
     - Referências DOM, objetos internos, closures, stores, fibers, VNodes,
-      contexts ou recursos privados NÃO DEVEM ser compartilhados como
-      substituição do contrato.
+      contexts, máquinas, serviços ou recursos privados NÃO DEVEM ser
+      compartilhados como substituição do contrato.
     - Comandos DEVEM validar:
       - origem;
       - autoridade;
@@ -1445,14 +1766,16 @@
       autorização explícitas.
     - Extensões, plugins e adaptadores NÃO DEVEM ampliar suas próprias
       permissões.
-    - Detecção de framework NÃO DEVE executar código arbitrário, `eval`, acesso
-      a internals ou sondagem invasiva.
+    - Detecção de framework, Zag.js ou perfil NÃO DEVE executar código
+      arbitrário, `eval`, acesso a internals ou sondagem invasiva.
 
   - **Pluggabilidade e expansividade**
     - O contrato DEVE permitir:
       - implementações alternativas;
       - adaptadores;
       - novos frameworks;
+      - novos toolkits comportamentais;
+      - novos perfis de release;
       - novos estados;
       - novos comandos;
       - novos hooks;
@@ -1477,8 +1800,10 @@
     - Consumidores DEVEM ignorar extensões desconhecidas somente quando isso for
       explicitamente seguro; extensões essenciais desconhecidas DEVEM impedir a
       ativação da integração afetada.
-    - Um futuro adaptador de framework DEVE poder ser adicionado sem alterar o
-      núcleo, salvo expansão genérica e justificada do contrato comum.
+    - Um futuro adaptador de framework ou toolkit DEVE poder ser adicionado sem
+      alterar o núcleo, salvo expansão genérica e justificada do contrato comum.
+    - Sua adoção DEVE atualizar automaticamente a matriz geral de releases com
+      todas as combinações válidas e o perfil sem a nova dependência.
 
   - **Desempenho e escalabilidade**
     - A comunicação em cascata DEVE evitar:
@@ -1491,11 +1816,12 @@
       - rerenders de toda a árvore para alteração localizada.
     - Alterações locais DEVEM gerar atualizações incrementais quando isso
       preservar consistência.
-    - Adaptadores React e Preact DEVEM:
+    - Adaptadores React, Preact e integrações Zag.js DEVEM:
       - assinar apenas projeções necessárias;
       - reduzir rerenders;
       - preservar igualdade e revisão quando aplicável;
-      - evitar espelhar integralmente a árvore em estado local redundante.
+      - evitar espelhar integralmente a árvore em estado local redundante;
+      - não duplicar o estado operacional em máquinas de interação.
     - Snapshots completos DEVEM permanecer disponíveis para:
       - inicialização;
       - recuperação;
@@ -1517,8 +1843,8 @@
       - frequência de renderização.
     - Recursos opcionais DEVEM permanecer desacopláveis do núcleo quando não
       utilizados.
-    - A descoberta cacheada de framework DEVE impedir verificações recorrentes
-      no caminho crítico.
+    - A descoberta cacheada de framework, Zag.js, combinação e perfil DEVE
+      impedir verificações recorrentes no caminho crítico.
 
   - **Interoperabilidade entre contextos**
     - O contrato DEVE ser aplicável, conforme suporte real, a:
@@ -1526,7 +1852,9 @@
       - Web Components;
       - React;
       - Preact;
-      - outros frameworks;
+      - Zag.js;
+      - combinações React + Zag.js e Preact + Zag.js;
+      - outros frameworks e toolkits;
       - Workers;
       - iframes autorizados;
       - processos;
@@ -1544,8 +1872,8 @@
     - Ambientes com limites de serialização DEVEM usar representações
       interoperáveis, sem expor objetos não transferíveis como parte obrigatória
       do protocolo.
-    - Recursos dependentes de DOM ou framework DEVEM declarar sua limitação de
-      ambiente e não contaminar o contrato universal.
+    - Recursos dependentes de DOM, framework, Zag.js ou combinação DEVEM
+      declarar sua limitação de ambiente e não contaminar o contrato universal.
 
   - **Documentação e exemplos**
     - A subnorma e a documentação DEVEM conter exemplos de:
@@ -1557,10 +1885,15 @@
       - adaptador genérico;
       - adaptador React;
       - adaptador Preact;
+      - React + Zag.js;
+      - Preact + Zag.js;
+      - Zag.js ausente;
       - framework ausente;
       - framework carregado tardiamente;
       - cache de descoberta;
       - recurso dependente desativado;
+      - escolha e importação de cada perfil de release;
+      - matriz expandida por nova integração opcional;
       - registro;
       - snapshot;
       - atualização incremental;
@@ -1604,12 +1937,14 @@
       ```text
       Componente React/Preact
          ↔ adaptador opcional
+         ↔ máquina Zag.js opcional
          ↔ nó lógico
          ↔ núcleo autônomo
       ```
 
     - Incluir contraexemplos de:
-      - núcleo importando React ou Preact;
+      - núcleo importando React, Preact ou Zag.js;
+      - máquina Zag.js usada como estado operacional ou autoridade;
       - árvore JSX usada como autoridade;
       - Context tratado como fonte de verdade;
       - filho controlando pai;
@@ -1624,7 +1959,11 @@
       - extensão customizada alterando semântica comum;
       - verificação de framework repetida em cada renderização;
       - framework ausente causando falha do núcleo;
-      - React ou Preact incluído no bundle principal.
+      - React, Preact ou Zag.js incluído no bundle principal;
+      - bundle único contendo todas as combinações como única distribuição;
+      - perfil sem Zag.js importando Zag.js;
+      - perfil React importando Preact ou vice-versa;
+      - matriz de release incompleta.
     - Cada exemplo DEVE indicar:
       - contexto;
       - dependências;
@@ -1639,6 +1978,9 @@
       - contrato genérico de adaptadores;
       - tipos especializados React;
       - tipos especializados Preact;
+      - tipos e contratos especializados Zag.js;
+      - perfis React + Zag.js e Preact + Zag.js;
+      - manifesto da matriz de releases;
       - schema do manifesto;
       - schema de eventos;
       - schema de comandos;
@@ -1650,7 +1992,7 @@
       - adaptador de referência;
       - suíte contratual;
       - exemplo mínimo sem framework;
-      - exemplos opcionais React e Preact.
+      - exemplos opcionais React, Preact, React + Zag.js e Preact + Zag.js.
     - Artefatos DEVEM ser:
       - versionados;
       - determinísticos;
@@ -1661,17 +2003,19 @@
       schema; deve explicar sua semântica e referenciá-las.
     - Tipos, schemas, implementação, adaptadores e exemplos DEVEM permanecer
       sincronizados.
-    - Artefatos de React ou Preact NÃO DEVEM ser importados por consumidores do
-      núcleo sem solicitação explícita.
+    - Artefatos de React, Preact ou Zag.js NÃO DEVEM ser importados por
+      consumidores do núcleo ou de outro perfil sem solicitação explícita.
 
   - **Ordem de implementação**
     - Executar, no mínimo, na seguinte sequência:
       1. inspecionar normas, implementação, build e dependências existentes;
       2. modelar conceitos, autoridade e hierarquia;
-      3. separar árvore lógica, representação visual e árvore de framework;
+      3. separar árvore lógica, representação visual, árvore de framework e
+         comportamento de interação;
       4. definir núcleo TypeScript independente de UI;
       5. definir contrato genérico de adaptadores;
-      6. separar contrato arquitetural de regras visuais e de framework;
+      6. separar contrato arquitetural de regras visuais, de framework e de
+         toolkit;
       7. criar a subnorma;
       8. definir tipos, manifestos e schemas;
       9. implementar identidade, registro e vínculo no núcleo;
@@ -1682,33 +2026,45 @@
       14. implementar encerramento e kill;
       15. implementar hooks;
       16. implementar recuperação e fail-safe;
-      17. implementar descoberta e cache de ambientes e adaptadores;
+      17. implementar descoberta e cache de ambientes, frameworks, Zag.js,
+          combinações e adaptadores;
       18. criar adaptador genérico de referência;
       19. avaliar React e Preact conforme o estado real;
-      20. implementar os adaptadores aprovados sem impor framework;
-      21. segregar bundles e entry points;
-      22. atualizar RCF, subnorma e `README.md`;
-      23. executar testes unitários, integrados, contratuais, de bundle e de
-          resiliência;
-      24. validar com implementação sem framework e implementação alternativa
+      20. avaliar Zag.js e delimitar apenas comportamentos de UI apropriados;
+      21. implementar os adaptadores aprovados sem impor framework ou toolkit;
+      22. implementar integrações Zag.js aprovadas sem transferir lógica do
+          núcleo;
+      23. definir manifesto geral da matriz de releases;
+      24. gerar os perfis mínimos standalone, React, React + Zag.js, Preact e
+          Preact + Zag.js;
+      25. segregar bundles, tipos e entry points;
+      26. incorporar a regra geral de combinações ao RCF;
+      27. atualizar RCF, subnorma e `README.md`;
+      28. executar testes unitários, integrados, contratuais, de bundle, de
+          matriz e de resiliência;
+      29. validar com implementação sem framework e implementação alternativa
           representativa;
-      25. validar, quando implementados, os adaptadores React e Preact.
-    - A escolha entre React e Preact DEVE ocorrer após:
+      30. validar separadamente cada perfil publicado em ambiente limpo.
+    - A escolha entre React e Preact e a adoção de Zag.js DEVEM ocorrer após:
       - definição do núcleo;
       - estabilização do contrato de adaptadores;
       - análise de dependências e bundle;
-      - verificação do ecossistema real do repositório.
+      - verificação do ecossistema real do repositório;
+      - comprovação de ganho sem transferência indevida de responsabilidades.
     - A ordem PODE ser ajustada quando dependências reais exigirem, mas NÃO DEVE
       permitir:
       - estabilizar APIs antes de definir autoridade e precedência;
-      - implementar lógica central dentro de framework;
-      - fazer o núcleo depender do adaptador provisório.
+      - implementar lógica central dentro de framework ou Zag.js;
+      - fazer o núcleo depender do adaptador provisório;
+      - publicar perfil antes de validar sua combinação isoladamente;
+      - adicionar integração opcional sem atualizar a matriz de release.
 
   - **Validação e aceite**
     - Confirmar por testes que:
       - comportamentos atuais permanecem compatíveis;
-      - o núcleo funciona sem DOM, React ou Preact;
-      - nenhum framework é necessário para inicializar ou utilizar a engine;
+      - o núcleo funciona sem DOM, React, Preact ou Zag.js;
+      - nenhum framework ou toolkit é necessário para inicializar ou utilizar a
+        engine;
       - `PageZone` funciona sem filhos;
       - filhos são vinculados somente ao pai imediato;
       - ciclos são rejeitados;
@@ -1749,33 +2105,54 @@
       - árvores profundas não causam recursão insegura;
       - árvores largas não provocam propagação desproporcional;
       - bundle e custo operacional permanecem proporcionais;
-      - o núcleo não importa React, Preact ou tipos específicos;
-      - adaptadores permanecem opcionais e segregados;
+      - o núcleo não importa React, Preact, Zag.js ou tipos específicos;
+      - adaptadores e máquinas opcionais permanecem segregados;
       - React não é exigido para usar Preact;
       - Preact não é exigido para usar React;
-      - ausência dos frameworks não produz falha do núcleo;
-      - framework presente é identificado somente por mecanismo seguro;
-      - descoberta não é repetida por componente, renderização ou instância;
-      - resultado da descoberta é reutilizado no mesmo contexto compatível;
+      - ausência dos frameworks ou de Zag.js não produz falha do núcleo;
+      - framework ou Zag.js presente é identificado somente por mecanismo
+        seguro;
+      - descoberta não é repetida por componente, máquina, renderização ou
+        instância;
+      - resultado da descoberta e da combinação é reutilizado no mesmo contexto
+        compatível;
       - contexts distintos não compartilham cache incompatível;
       - carregamento tardio atualiza o registro;
-      - estados ausente, pendente, incompatível e disponível permanecem
-        distintos;
+      - estados ausente, pendente, incompatível, combinação incompleta e
+        disponível permanecem distintos;
       - recurso dependente somente é ativado após validação;
       - capacidades não disponíveis são informadas explicitamente;
       - fallback core é utilizado quando previsto;
       - recursos sem fallback falham de forma localizada e determinística;
-      - adaptadores React e Preact, quando implementados, passam pela mesma suíte
-        contratual;
+      - adaptadores React e Preact, quando implementados, passam pela mesma
+        suíte contratual;
+      - integrações React + Zag.js e Preact + Zag.js passam pela suíte comum e
+        pelas validações específicas;
+      - máquinas Zag.js não substituem árvore, autoridade, estados operacionais
+        nem ciclo de vida do núcleo;
       - Context, hooks e reducers não substituem a árvore e os estados do
         núcleo;
       - portals e estruturas visuais divergentes preservam a hierarquia lógica;
       - erro de renderização não corrompe o núcleo;
       - rerenders são limitados às projeções afetadas;
-      - React e Preact não são incorporados ao bundle principal;
-      - entry points comuns não carregam adaptadores;
-      - RCF, subnorma, tipos, schemas, testes, adaptadores e documentação
-        descrevem o mesmo contrato;
+      - React, Preact e Zag.js não são incorporados ao bundle principal;
+      - entry points comuns não carregam adaptadores ou máquinas opcionais;
+      - a release contém, no mínimo, perfis standalone, Preact, Preact + Zag.js,
+        React e React + Zag.js;
+      - cada perfil contém somente código e tipos da combinação declarada;
+      - o perfil standalone funciona sem dependências opcionais;
+      - perfis sem Zag.js funcionam com Zag.js ausente;
+      - perfis React não resolvem Preact e perfis Preact não resolvem React;
+      - perfis combinados validam conjuntamente framework, Zag.js e adaptadores;
+      - exports permitem selecionar diretamente o perfil;
+      - a matriz de release é determinística, completa e coerente com o
+        manifesto;
+      - nova integração opcional expande a matriz com todas as combinações
+        válidas e com sua ausência;
+      - uma variante universal, se existir, não substitui os bundles
+        especializados;
+      - RCF, subnorma, tipos, schemas, testes, adaptadores, matriz de release e
+        documentação descrevem o mesmo contrato;
       - o `README.md` e o RCF principal vinculam diretamente a subnorma;
       - outro projeto consegue implementar contêiner compatível, com estrutura
         visual e framework distintos, usando apenas a subnorma e os artefatos
